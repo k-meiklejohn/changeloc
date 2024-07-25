@@ -1,5 +1,5 @@
 process RUN_TPPRED3 {
-    container "tppredtest"
+    container "tppred3"
 
     input:
     path input_file
@@ -11,10 +11,4 @@ process RUN_TPPRED3 {
     """
     tppred3.py -f $input_file -o output.txt -k N
     """
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TPPRED3(input_ch)
 }

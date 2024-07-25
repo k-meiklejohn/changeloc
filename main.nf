@@ -21,15 +21,3 @@ workflow {
 
     RUN_TPPRED3(input_ch)
 }
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TPPRED3(input_ch)
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TPPRED3(input_ch)
-}
