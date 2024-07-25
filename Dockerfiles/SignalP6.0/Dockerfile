@@ -7,7 +7,7 @@ RUN apt-get update && \
     tar \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# COPY targetP from current directory and extract
+# COPY targetP from P-tar-gzw directory and extract
 COPY signalp-6.0h.fast.tar.gz .
 RUN tar -xvzf signalp-6.0h.fast.tar.gz \
 && rm signalp-6.0h.fast.tar.gz

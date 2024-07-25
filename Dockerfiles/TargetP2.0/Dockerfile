@@ -18,7 +18,3 @@ RUN tar -xvzf targetp-2.0.Linux.tar.gz \
 #Put targetp on path and give permissions
 ENV PATH="/targetp-2.0/bin:${PATH}"
 RUN chmod +x /targetp-2.0/bin/targetp
-
-# RUN cp -r /targetp-2.0/bin/targetp /usr/local/bin/ && \
-# chmod +x /usr/local/bin/targetp
-
