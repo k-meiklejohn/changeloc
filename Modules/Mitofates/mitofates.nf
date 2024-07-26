@@ -12,9 +12,3 @@ process RUN_MITOFATES {
     perl /MitoFates/MitoFates.pl $input_file fungi > output.txt
     """
 }
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_MITOFATES(input_ch)
-}

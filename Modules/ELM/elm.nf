@@ -1,4 +1,4 @@
-process RUN_MITOFATES {
+process RUN_ELM {
     container "elm:latest"
 
     input:
@@ -11,10 +11,4 @@ process RUN_MITOFATES {
     """
     python /elm.py $input_file > output.txt
     """
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_MITOFATES(input_ch)
 }

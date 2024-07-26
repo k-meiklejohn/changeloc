@@ -9,6 +9,6 @@ process RUN_TPPRED3 {
 
     script:
     """
-    tppred3.py -f $input_file -o output.txt -k N
+    /tppred3/tppred3.py -f $input_file -o output.txt -k N
     """
 }

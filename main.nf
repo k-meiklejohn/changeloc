@@ -1,23 +1,11 @@
-include RUN_TPPRED3 from 
-include  from 
-include  from 
-include  from 
-include  from 
+include {WF_PREDICT} from './Workflows/predict.nf'
+
+input_fa = channel.fromPath("build.fasta")
 
 workflow {
-    input_ch = channel.fromPath("example.fasta")
+    
+input_fa = channel.fromPath("build.fasta")
 
-    RUN_TPPRED3(input_ch)
-}
+WF_PREDICT(input_fa)
 
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TPPRED3(input_ch)
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TPPRED3(input_ch)
 }

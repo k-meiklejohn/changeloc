@@ -1,4 +1,4 @@
-process RUN_TARGETP {
+process RUN_TARGETP2 {
     container "targetp2"
 
     input:
@@ -11,10 +11,4 @@ process RUN_TARGETP {
     """
     targetp -fasta $input_file > output.txt
     """
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_TARGETP(input_ch)
 }

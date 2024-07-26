@@ -11,12 +11,6 @@ process RUN_WOLFPSORT {
 
     script:
     """
-    runWolfPsortSummary fungi < $input_file
+    runWolfPsortSummary fungi < $input_file > output.txt
     """
-}
-
-workflow {
-    input_ch = channel.fromPath("example.fasta")
-
-    RUN_WOLFPSORT(input_ch)
 }
