@@ -1,14 +1,16 @@
 process RUN_TARGETP2 {
     container "targetp2"
 
+    publishDir "Results"
+
     input:
     path input_file
 
     output:
-    path "output.txt"
+    path "targetp2.out"
 
     script:
     """
-    targetp -fasta $input_file > output.txt
+    targetp -fasta $input_file > targetp2.out
     """
 }

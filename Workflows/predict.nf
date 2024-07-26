@@ -1,3 +1,4 @@
+//workflow module taking fasta file and running through each prediciton software.
 
 //include processes from /Modules to run each process
 include {RUN_MITOFATES} from '../Modules/Mitofates/mitofates.nf'
@@ -7,8 +8,7 @@ include {RUN_WOLFPSORT} from '../Modules/WoLFPSort/wolfpsort.nf'
 include {RUN_TPPRED3} from '../Modules/TPpred3.0/tppred3.nf'
 include {RUN_DEEPLOC2} from '../Modules/Deeploc2/deeploc2.nf'
 
-//include {RUN_ from '../Modules/.nf'
-
+//include {RUN_} from '../Modules/.nf'
 
 workflow WF_PREDICT {
     take:
@@ -21,5 +21,12 @@ workflow WF_PREDICT {
     RUN_WOLFPSORT(input_ch)
     RUN_DEEPLOC2(input_ch)
     RUN_TPPRED3(input_ch)
+
+    emit:
+    RUN_MITOFATES.out
+    RUN_TARGETP2.out
+    RUN_WOLFPSORT.out
+    RUN_DEEPLOC2.out
+    RUN_TPPRED3.out
 
 }

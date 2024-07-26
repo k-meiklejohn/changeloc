@@ -1,14 +1,16 @@
 process RUN_DEEPLOC2 {
     container "deeploc:latest"
 
+    publishDir "Results"
+
     input:
     path input_file
 
     output:
-    path "output.txt"
+    path "deeploc.out"
 
     script:
     """
-    deeploc2 -f $input_file -o output.txt
+    deeploc2 -f $input_file -o deeploc.out
     """
 }

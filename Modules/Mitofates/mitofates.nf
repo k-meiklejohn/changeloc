@@ -1,14 +1,16 @@
 process RUN_MITOFATES {
     container "mitofates:latest"
 
+    publishDir "Results"
+
     input:
     path input_file
 
     output:
-    path "output.txt"
+    path "mitofates.out"
 
     script:
     """
-    perl /MitoFates/MitoFates.pl $input_file fungi > output.txt
+    perl /MitoFates/MitoFates.pl $input_file fungi > mitofates.out
     """
 }

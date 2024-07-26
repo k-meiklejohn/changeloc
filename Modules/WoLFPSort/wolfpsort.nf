@@ -1,16 +1,16 @@
-//working
-
 process RUN_WOLFPSORT {
     container "wolfpsort"
+
+    publishDir "Results"
 
     input:
     path input_file
 
     output:
-    path "output.txt"
+    path "wolfpsort.out"
 
     script:
     """
-    runWolfPsortSummary fungi < $input_file > output.txt
+    runWolfPsortSummary fungi < $input_file > wolfpsort.out
     """
 }
