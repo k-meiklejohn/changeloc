@@ -7,10 +7,10 @@ process RUN_TARGETP2 {
     path input_file
 
     output:
-    path "targetp2.out"
+    path "*.targetp2"
 
     script:
     """
-    targetp -fasta $input_file > targetp2.out
+    targetp -fasta $input_file
     """
 }

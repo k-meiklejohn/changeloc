@@ -1,4 +1,6 @@
-FROM python
+FROM continuumio/miniconda3   
+
+ENV PYTHONDONTWRITEBYTECODE=true
 
 # Install necessary system packages
 RUN apt-get update && \
@@ -12,10 +14,14 @@ COPY signalp-6.0h.fast.tar.gz .
 RUN tar -xvzf signalp-6.0h.fast.tar.gz \
 && rm signalp-6.0h.fast.tar.gz
 
-#Put targetp on path and give permissions
-ENV PATH="/targetp-2.0/bin:${PATH}"
-RUN chmod +x /targetp-2.0/bin/targetp
+RUN conda update -n base -c defaults conda && \
+    conda install -n base python=3.10 && \
+    conda clean -afy
 
-# RUN cp -r /targetp-2.0/bin/targetp /usr/local/bin/ && \
-# chmod +x /usr/local/bin/targetp
+WORKDIR /signalp6_fast
 
+RUN conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 -c pytorch
+
+RUN pip install signalp-6-package/
+
+RUN cp -r signalp-6-package/models/* /opt/conda/lib/python3.10/site-packages/signalp/model_weights

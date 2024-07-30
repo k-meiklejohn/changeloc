@@ -1,5 +1,5 @@
 process RUN_DEEPMITO {
-    container "deepmito:latest"
+    container "deepmito"
 
     input:
     path input_file
@@ -9,11 +9,12 @@ process RUN_DEEPMITO {
 
     script:
     """
-    
+    deepmito.py
     """
 }
 
 workflow {
     input_ch = channel.fromPath("example.fasta")
 
-    RUN_MITOFATES(input_ch)
+    RUN_DEEPMITO(input_ch)
+}
