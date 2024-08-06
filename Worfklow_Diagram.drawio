@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="24.7.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0" version="24.7.6">
   <diagram name="Page-1" id="ULZPpcux9okNFwmup-YN">
-    <mxGraphModel dx="2168" dy="1190" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2166" dy="1190" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -164,7 +164,7 @@
         <mxCell id="Gp8ee50BkvabkPKKaWTL-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Gp8ee50BkvabkPKKaWTL-15" target="qJnq9B5q6zjiuBLe0VOC-34" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Gp8ee50BkvabkPKKaWTL-15" value="USER:Software" style="triangle;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="Gp8ee50BkvabkPKKaWTL-15" value="&lt;div&gt;USER:Software&lt;/div&gt;&lt;div&gt;choice&lt;br&gt;&lt;/div&gt;" style="triangle;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-181" y="588" width="126" height="134" as="geometry" />
         </mxCell>
         <mxCell id="vaD8Y8nn1ZXBgAJLPTWL-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;" parent="1" source="vaD8Y8nn1ZXBgAJLPTWL-10" target="vaD8Y8nn1ZXBgAJLPTWL-12" edge="1">
@@ -199,6 +199,9 @@
         <mxCell id="vaD8Y8nn1ZXBgAJLPTWL-15" value="program n output" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="309" y="994" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="9W88kgKnvY1B7W64wvPr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vaD8Y8nn1ZXBgAJLPTWL-20" target="9W88kgKnvY1B7W64wvPr-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="vaD8Y8nn1ZXBgAJLPTWL-20" value="Predictions tuple" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="157" y="1189" width="140" height="120" as="geometry" />
         </mxCell>
@@ -210,6 +213,15 @@
         </mxCell>
         <mxCell id="vaD8Y8nn1ZXBgAJLPTWL-23" value="Program n output" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vaD8Y8nn1ZXBgAJLPTWL-20" vertex="1">
           <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9W88kgKnvY1B7W64wvPr-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9W88kgKnvY1B7W64wvPr-1" target="9W88kgKnvY1B7W64wvPr-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9W88kgKnvY1B7W64wvPr-1" value="Report" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="187" y="1401" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9W88kgKnvY1B7W64wvPr-3" value="Report" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="167" y="1564" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
