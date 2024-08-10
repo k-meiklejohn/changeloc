@@ -7,15 +7,11 @@ process RUN_SIGNALP6 {
     path input_file
 
     output:
-    path "signalp6/prediction_results.txt"
+    path "signalp6.out"
 
     script:
     """
     signalp6 --fastafile $input_file --organism other --output_dir signalp6  --format none
+    mv signalp6/prediction_results.txt signalp6.out
     """
-}
-
-workflow{
-    input = Channel.fromPath("example.fasta")
-    RUN_SIGNALP6(input)
 }

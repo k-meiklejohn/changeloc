@@ -2,3 +2,8 @@ work
 .nextflow*
 *tar.gz
 example.fasta
+ELM
+Deepmito
+Results
+*.out
+*.csv

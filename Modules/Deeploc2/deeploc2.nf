@@ -7,10 +7,11 @@ process RUN_DEEPLOC2 {
     path input_file
 
     output:
-    path "deeploc.out"
+    path "deeploc2.out"
 
     script:
     """
-    deeploc2 -f $input_file -o deeploc.out
+    deeploc2 -f $input_file -o deeplocdir
+    mv deeplocdir/* deeploc2.out
     """
 }
