@@ -1,5 +1,6 @@
 input_file <- commandArgs(trailingOnly = TRUE)
 
+
 if (input_file == "mitofates.out") {
   table <- read.delim(input_file, row.names = NULL)
 }
@@ -61,4 +62,18 @@ if (input_file == "deeploc2.out") {
   table <- read.csv(input_file)
 }
 
-write.csv(table, file = paste0(input_file, ".csv"), row.names = FALSE)
+colnames(table)[1] <- "seqID"
+colnames(table)[2] <- "Prediction"
+columns <- colnames(table)
+forPivot <- columns[-c(1)]
+
+table <- table %>%
+    mutate(set = str_extract(str_extract(seqID, "changelocset:\\d+"), "\\d+" )) %>%
+    mutate(seqID = str_extract(seqID, "^.*(?=(-changelocset))")) %>%
+    pivot_wider(names_from = set, values_from = all_of(forPivot) )
+
+table <- table %>%
+  mutate(change =)
+
+write_tsv(table, file = paste0(input_file, ".tsv"))
+

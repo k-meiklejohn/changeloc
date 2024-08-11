@@ -1,0 +1,29 @@
+#!/bin/bash
+
+cd Licensed_packages
+mv targetp-2.0.Linux.tar.gz ../Dockerfiles/TargetP2.0
+mv signalp-6.0h.fast.tar.gz ../Dockerfiles/SignalP6.0
+mv deeploc-2.0.All.tar.gz ../Dockerfiles/Deeploc2.0
+
+cd ../Dockerfiles/Deeploc2.0
+docker build -t deeploc2 .
+
+cd ../Mitofates
+docker build -t mitofates .
+
+cd ../SignalP6.0
+docker build -t signalp6 .
+
+cd ../TargetP2.0
+docker build -t targetp2 .
+
+cd ../TPpred3.0
+docker build -t tppred3 .
+
+cd ../WolfPsort
+docker build -t wolfpsort .
+
+docker pull rocker/tidyverse
+
+# cd ../
+# docker build .

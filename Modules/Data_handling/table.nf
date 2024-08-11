@@ -1,13 +1,14 @@
 process RUN_TABLE {
-    publishDir "CSVs"
+    container "rocker/tidyverse"
+    publishDir "TSVs"
 
     input:
     path prediciton
 
     output:
-    path "*.csv"
+    path "*.tsv"
 
     """
-    Rscript ../../../Scripts/RScripts/table.R $prediciton
+    table.R $prediciton
     """
 }

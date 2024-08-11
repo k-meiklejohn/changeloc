@@ -1,5 +1,5 @@
 process RUN_DEEPLOC2 {
-    container "deeploc:latest"
+    container "deeploc2"
 
     publishDir "Results"
 

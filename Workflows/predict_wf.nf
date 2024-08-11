@@ -32,7 +32,8 @@ workflow WF_PREDICT {
         .collectFile(name: "signalp6.out", skip: 1)
 
     // Merge all outputs into a single channel using `mix`
-    predictions = mitofates.mix(wolfpsort, tppred3, deeploc2, targetp2, signalp6)
+    predictions = mitofates
+        .mix(wolfpsort, tppred3, deeploc2, targetp2, signalp6)
 
     emit:
     predictions
