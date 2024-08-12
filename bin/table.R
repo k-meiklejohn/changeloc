@@ -24,7 +24,7 @@ if (input_file == "mitofates.out") {
 
   # format Predictions
   table <- table[,c(1,3,2,4:21)] %>%
-   mutate(Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
+    mutate(table, Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
                                   Prediction == "Possessing mitochondrial presequence" ~ "mitp"))
 
 }
@@ -127,7 +127,7 @@ map_Prediction <- function(Predictions, abbreviations) {
   })
 }
 
-
+#use above function to change abbreviations to correct format
 table <- table %>%
   mutate(Prediction = map_Prediction(Prediction, abbreviations))
 
@@ -140,16 +140,27 @@ colnames(table)[2] <- "Prediction"
 columns <- colnames(table)
 forPivot <- columns[-c(1)]
 
+
 # pivots the table to compare Prediction between sets
 table <- table %>%
-    mutate(set = str_extract(str_extract(seqID, "changelocset:\\d+"), "\\d+" )) %>%
-    mutate(seqID = str_extract(seqID, "^.*(?=(-changelocset))")) %>%
+    mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
+    mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
+sets = unique(table$set)
+table <- table %>%
     pivot_wider(names_from = set, values_from = all_of(forPivot) )
 
-
-table <- table %>%
-  mutate(change = paste(Prediction_1, "to", Prediction_2), after = seqID)
-
+first <- TRUE
+for (i in sets){
+  if (first == TRUE) {
+    table <- table %>%
+      mutate(change = get(paste0("Prediction_", i)))
+  }
+  if (first == FALSE) {
+    table <- table %>%
+      mutate(change = paste0(change, "-", get(paste0("Prediction_", i))), .after = seqID)
+  }
+  first = FALSE
+  
+}
 
 write_tsv(table, file = paste0(input_file, ".tsv"))
-
