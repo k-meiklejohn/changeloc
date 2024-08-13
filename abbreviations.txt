@@ -18,4 +18,5 @@ cysk - cytoskeleton
 mito - mitochondrion
 othr - other (or not classified by a particular software)
 sgnl - signal peptide detected
+    can include(sgnl, golg, E.R., lyso, plas, extr)
 mitp - mitochondrial transit peptide detected

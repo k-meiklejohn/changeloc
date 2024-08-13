@@ -1,8 +1,9 @@
 // main.nf
 include {WF_PREDICT} from './Workflows/predict_wf.nf'
-include {WF_TABLE} from './Workflows/table_wf.nf'
+include {WF_LONG_TABLE} from './Workflows/long-table_wf.nf'
 include {WF_DEF_SET} from './Workflows/def-set_wf.nf'
 include {WF_SPLIT_FASTA} from './Workflows/split-fasta_wf.nf'
+include {WF_WIDE_TABLES} from './Workflows/wide-tables.nf'
 
 // Define parameters
 params.input = "*.fasta"
@@ -21,6 +22,11 @@ workflow {
 
     // send to prediction software
     prediction = WF_PREDICT(split_fasta)
-    WF_TABLE(prediction)
+
+    // long table creation
+    long_table = WF_LONG_TABLE(prediction)
+
+    // wide tables creation
+    WF_WIDE_TABLES(long_table)
 
 }

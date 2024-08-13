@@ -24,7 +24,8 @@ docker build -t tppred3 .
 cd ../WolfPsort
 docker build -t wolfpsort .
 
-docker pull rocker/tidyverse
+cd ../R
+docker build -t changeloc/R
 
 # cd ../
 # docker build .

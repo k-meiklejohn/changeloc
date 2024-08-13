@@ -3,6 +3,9 @@ library(tidyverse)
 
 input_file <- commandArgs(trailingOnly = TRUE)
 
+file_name <- str_extract(input_file, "^.*?(?=\\.)")
+
+
 if (input_file == "mitofates.out") {
 
   #create tempfile
@@ -137,30 +140,13 @@ table <- table %>%
 #remanes first column to seqID and makes a list of columns to use to create data
 colnames(table)[1] <- "seqID"
 colnames(table)[2] <- "Prediction"
-columns <- colnames(table)
-forPivot <- columns[-c(1)]
 
 
-# pivots the table to compare Prediction between sets
+# Give set and seqid proprely to each entry
 table <- table %>%
     mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
     mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
-sets = unique(table$set)
-table <- table %>%
-    pivot_wider(names_from = set, values_from = all_of(forPivot) )
 
-first <- TRUE
-for (i in sets){
-  if (first == TRUE) {
-    table <- table %>%
-      mutate(change = get(paste0("Prediction_", i)))
-  }
-  if (first == FALSE) {
-    table <- table %>%
-      mutate(change = paste0(change, "-", get(paste0("Prediction_", i))), .after = seqID)
-  }
-  first = FALSE
-  
-}
 
-write_tsv(table, file = paste0(input_file, ".tsv"))
+#this gives general non comparative tsv to work with in other reports
+write_tsv(table, file = paste0(file_name, ".long.tsv"))
