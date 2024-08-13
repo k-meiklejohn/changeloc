@@ -12,18 +12,20 @@ abbreviations <- c("sgnl", "golg", "E.R.", "lyso", "plas", "extr")
 
 # Modify the 'Prediction' column based on the given conditions
 sgnl_table <- long_table %>%
-  mutate(Prediction = case_when(
+  mutate(Prediction = 
+    case_when(
     # If Prediction matches any abbreviation directly
     Prediction %in% abbreviations ~ "sgnl",
 
     # If Prediction contains any abbreviation combined with another part
-    case_when(grepl("_", Prediction) ~
-    any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~ "dual_sgnl",
+    grepl("_", Prediction) ~ case_when(
+      any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~ "dual_sgnl",
+      TRUE ~ "othr"
     ),
     # All other cases
     TRUE ~ "othr"
-)
-)
+    )
+  ) 
 
 
 sets <- unique(sgnl_table$set)

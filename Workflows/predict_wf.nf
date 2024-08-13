@@ -24,16 +24,25 @@ workflow WF_PREDICT {
         .collectFile(name: "wolfpsort.out", skip: 1)
     tppred3 = RUN_TPPRED3(split_files)
         .collectFile(name: "tppred3.out", skip: 1)
+    if (params.fast == false){
     deeploc2 = RUN_DEEPLOC2(split_files)
         .collectFile(name: "deeploc2.out")
+    }
     targetp2 = RUN_TARGETP2(split_files)
         .collectFile(name:"targetp2.out", skip: 1)
     signalp6 = RUN_SIGNALP6(split_files)
         .collectFile(name: "signalp6.out", skip: 1)
 
     // Merge all outputs into a single channel using `mix`
-    predictions = mitofates
-        .mix(wolfpsort, tppred3, deeploc2, targetp2, signalp6)
+
+        if (params.fast == false){
+            predictions = mitofates
+                .mix(wolfpsort, tppred3, targetp2, signalp6, deeploc2)
+        }
+        else{
+            predictions = mitofates
+                .mix(wolfpsort, tppred3, targetp2, signalp6)
+        }
 
     emit:
     predictions

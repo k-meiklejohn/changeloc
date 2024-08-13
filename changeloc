@@ -1,0 +1,20 @@
+#!/bin/bash
+changeloc(){
+nextflow run main.nf || echo "Must be run in root, for usage check ./changloc -h";
+}
+
+Help(){
+    echo "Changeloc is a tool for the identification of localisation change between different proteoforms"
+    echo
+    echo "Usage: ./changeloc --fasta one.fasta two.fasta [--fast (true|false)] "
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+   esac
+done
+
+changeloc

@@ -7,7 +7,7 @@ mv deeploc-2.0.All.tar.gz ../Dockerfiles/Deeploc2.0 || echo "Failed to find Deep
 
 cd ../Dockerfiles/Deeploc2.0
 echo "Building Deeploc 2, this may take some time ..."
-docker build -t deeploc2 .
+docker build -t deeploc2 . 
 
 cd ../Mitofates
 docker build -t mitofates .
@@ -25,7 +25,7 @@ cd ../WolfPsort
 docker build -t wolfpsort .
 
 cd ../R
-docker build -t changeloc/R
+docker build -t changeloc/r .
 
 # cd ../
 # docker build .
