@@ -3,6 +3,8 @@ process RUN_MITOFATES {
 
     publishDir "Results"
 
+
+
     input:
     path input_file
 

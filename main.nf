@@ -7,7 +7,11 @@ include {WF_WIDE_TABLES} from './Workflows/wide-tables.nf'
 
 
 // Main workflow
-workflow {
+workflow{
+
+    // Print parameters for debugging
+
+
     // Create a channel from the input FASTA files
     input_sets = Channel.fromPath(params.fasta)
 

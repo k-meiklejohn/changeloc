@@ -2,6 +2,7 @@ process RUN_TARGETP2 {
     container "targetp2"
 
     publishDir "Results"
+    
 
     input:
     path input_file
