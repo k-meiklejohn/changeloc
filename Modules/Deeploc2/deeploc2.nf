@@ -3,6 +3,7 @@ process RUN_DEEPLOC2 {
 
     publishDir "Results"
 
+
     input:
     path input_file
 

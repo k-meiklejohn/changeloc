@@ -3,7 +3,7 @@ library(tidyverse)
 
 input_file <- commandArgs(trailingOnly = TRUE)
 
-file_name <- str_extract(input_file, "^.*?(?=\\.)" )
+file_name <- str_extract(input_file, "^.*?(?=\\.)")
 
 long_table <- read_tsv(input_file)
 
@@ -12,21 +12,19 @@ abbreviations <- c("sgnl", "golg", "E.R.", "lyso", "plas", "extr")
 
 # Modify the 'Prediction' column based on the given conditions
 sgnl_table <- long_table %>%
-  mutate(Prediction = 
-    case_when(
-    # If Prediction matches any abbreviation directly
-    Prediction %in% abbreviations ~ "sgnl",
+  mutate(Prediction =
+      case_when(
+        # If Prediction matches any abbreviation directly
+        Prediction %in% abbreviations ~ "sgnl",
 
-    # If Prediction contains any abbreviation combined with another part
-    grepl("_", Prediction) ~ case_when(
-      any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~ "dual_sgnl",
-      TRUE ~ "othr"
-    ),
-    # All other cases
-    TRUE ~ "othr"
-    )
-  ) 
+        # If Prediction contains any abbreviation combined with another part
+        any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~
+          "dual_sgnl",
 
+        # All other cases
+        TRUE ~ "othr"
+      )
+  )
 
 sets <- unique(sgnl_table$set)
 columns <- colnames(sgnl_table)
