@@ -28,7 +28,7 @@ if (input_file == "mitofates.out") {
   # format Predictions
   table <- table[,c(1,3,2,4:21)] %>%
     mutate(table, Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
-                                  Prediction == "Possessing mitochondrial presequence" ~ "mitp"))
+                                  Prediction == "Possessing mitochondrial presequence" ~ "mito"))
 
 }
 
@@ -41,7 +41,7 @@ if (input_file == "tppred3.out") {
   table <- table %>%
     distinct(X1, .keep_all = TRUE) %>%
     mutate(Prediction = case_when(Prediction == "Chain" ~ "othr",
-                          Prediction == "Transit peptide" ~ "mitp"))
+                          Prediction == "Transit peptide" ~ "mito"))
 }
 
 if (input_file == "wolfpsort.out") {

@@ -27,7 +27,7 @@ for (i in sets){
       mutate(change = paste0(change, "-", get(paste0("Prediction_", i))), .after = seqID)
   }
   first <- FALSE
-  
+
 }
 
-write_tsv(wide_table, file = paste0(file_name, ".wide.tsv"))
+write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv"))

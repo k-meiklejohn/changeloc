@@ -61,13 +61,13 @@ workflow WF_PREDICT {
 
     if (rwolfpsort) {
         def wolfpsort = RUN_WOLFPSORT(split_files)
-            .collectFile(name: "wolfpsort.out")
+            .collectFile(name: "wolfpsort.out", skip: 1)
         prediction = prediction.mix(wolfpsort)
     }
 
     if (rtppred3) {
         def tppred3 = RUN_TPPRED3(split_files)
-            .collectFile(name: "tppred3.out")
+            .collectFile(name: "tppred3.out", skip: 1)
         prediction = prediction.mix(tppred3)
     }
 
@@ -79,13 +79,13 @@ workflow WF_PREDICT {
 
     if (rtargetp2) {
         def targetp2 = RUN_TARGETP2(split_files)
-            .collectFile(name: "targetp2.out")
+            .collectFile(name: "targetp2.out", skip: 1)
         prediction = prediction.mix(targetp2)
     }
 
     if (rsignalp6) {
         def signalp6 = RUN_SIGNALP6(split_files)
-            .collectFile(name: "signalp6.out")
+            .collectFile(name: "signalp6.out", skip: 1)
         prediction = prediction.mix(signalp6)
     }
 

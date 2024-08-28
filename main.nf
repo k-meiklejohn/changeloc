@@ -3,7 +3,8 @@ include {WF_PREDICT} from './Workflows/predict_wf.nf'
 include {WF_LONG_TABLE} from './Workflows/long-table_wf.nf'
 include {WF_DEF_SET} from './Workflows/def-set_wf.nf'
 include {WF_SPLIT_FASTA} from './Workflows/split-fasta_wf.nf'
-include {WF_WIDE_TABLES} from './Workflows/wide-tables.nf'
+include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
+
 
 
 // Main workflow
@@ -28,6 +29,6 @@ workflow{
     long_table = WF_LONG_TABLE(prediction)
 
     // wide tables creation
-    WF_WIDE_TABLES(long_table)
+    wide_table = WF_WIDE_TABLES(long_table)
 
 }
