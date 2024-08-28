@@ -27,5 +27,8 @@ docker build -t wolfpsort .
 cd ../R
 docker build -t changeloc/r .
 
+cd ../Python
+docker build -t changeloc/python.
+
 # cd ../
 # docker build .
