@@ -6,12 +6,13 @@ process RUN_WOLFPSORT {
 
     input:
     path input_file
+    val organism
 
     output:
     path "wolfpsort.out"
 
     script:
     """
-    runWolfPsortSummary fungi < $input_file > wolfpsort.out
+    runWolfPsortSummary $organism < $input_file > wolfpsort.out
     """
 }

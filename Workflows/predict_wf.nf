@@ -18,73 +18,40 @@ workflow WF_PREDICT {
     split_files
 
     main:
-        rmitofates = false
-        rwolfpsort = false
-        rtppred3 = false
-        rdeeploc2 = false
-        rtargetp2 = false
-        rsignalp6 = false
-
-    // Set parameters based on the selected software
-    if (params.software == "all") {
-            rmitofates = true
-            rwolfpsort = true
-            rtppred3 = true
-            rdeeploc2 = true
-            rtargetp2 = true
-            rsignalp6 = true
-    } else if (params.software == "mito-only") {
-            rmitofates = true
-            rtppred3 = true
-            rtargetp2 = true
-    } else if (params.software == "general-only") {
-            rwolfpsort = true
-            rdeeploc2 = true
-    } else if (params.software == "signal-only") {
-            rwolfpsort = true
-            rdeeploc2 = true
-            rtargetp2 = true
-            rsignalp6 = true
-    } else if (params.software == "quick") {
-            println("logic working")
-            rmitofates = true
-            rwolfpsort = true
-            rtppred3 = true
-    }
 
     prediction = Channel.empty()
-    if (rmitofates) {
-        def mitofates = RUN_MITOFATES(split_files)
+    if (params.run_mitofates) {
+        def mitofates = RUN_MITOFATES(split_files, params.org_mitofates)
             .collectFile(name: "mitofates.out")
         prediction = prediction.mix(mitofates)
     }
 
-    if (rwolfpsort) {
-        def wolfpsort = RUN_WOLFPSORT(split_files)
+    if (params.run_wolfpsort) {
+        def wolfpsort = RUN_WOLFPSORT(split_files, params.org_wolfpsort)
             .collectFile(name: "wolfpsort.out", skip: 1)
         prediction = prediction.mix(wolfpsort)
     }
 
-    if (rtppred3) {
-        def tppred3 = RUN_TPPRED3(split_files)
+    if (params.run_tppred3) {
+        def tppred3 = RUN_TPPRED3(split_files, params.org_tppred3)
             .collectFile(name: "tppred3.out", skip: 1)
         prediction = prediction.mix(tppred3)
     }
 
-    if (rdeeploc2) {
-        def deeploc2 = RUN_DEEPLOC2(split_files)
+    if (params.run_deeploc2) {
+        def deeploc2 = RUN_DEEPLOC2(split_files, params.deeploc2_model)
             .collectFile(name: "deeploc2.out")
         prediction = prediction.mix(deeploc2)
     }
 
-    if (rtargetp2) {
-        def targetp2 = RUN_TARGETP2(split_files)
+    if (params.run_targetp2) {
+        def targetp2 = RUN_TARGETP2(split_files, params.org_tagetp2)
             .collectFile(name: "targetp2.out", skip: 1)
         prediction = prediction.mix(targetp2)
     }
 
-    if (rsignalp6) {
-        def signalp6 = RUN_SIGNALP6(split_files)
+    if (params.run_signalp6) {
+        def signalp6 = RUN_SIGNALP6(split_files, params.signalp6_model, params.org_signalp6)
             .collectFile(name: "signalp6.out", skip: 1)
         prediction = prediction.mix(signalp6)
     }

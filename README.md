@@ -22,3 +22,18 @@ mito - mitochondrion
 othr - other (or not classified by a particular software usually !mito or !sgnl)
 sgnl - signal peptide detected
     can include(sgnl, golg, E.R., lyso, plas, extr)
+
+
+profiles
+
+organism
+signalp6 -org other, eukarya
+targetp2 -org non-pl, pl
+deeploc2 no choice
+tppred3 -k P, N
+mitofates fungi, metazoa, plant
+wolfposrt fungi, animal, plant
+
+model
+deeploc2 -m Fast, Accurate
+signalp6 -m fast, slow

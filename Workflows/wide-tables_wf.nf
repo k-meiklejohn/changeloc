@@ -10,10 +10,6 @@ workflow WF_WIDE_TABLES{
     prediction
 
     main:
-
-    mitormd = Channel.fromPath(params.mitoreport)
-    // allrmd = Channel.fromPath(params.allreport)
-    // sgnlrmd = Channel.fromPath(params.sgnlreport)
     
     all_wide = RUN_WIDE_TABLE(prediction)
         .collect()

@@ -7,12 +7,13 @@ process RUN_MITOFATES {
 
     input:
     path input_file
+    val organism
 
     output:
     path "mitofates.out"
 
     script:
     """
-    perl /MitoFates/MitoFates.pl $input_file fungi > mitofates.out
+    perl /MitoFates/MitoFates.pl $input_file $organism > mitofates.out
     """
 }
