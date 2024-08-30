@@ -12,5 +12,5 @@ full_filename="$1"
 # Extract the filename without the extension
 basename=$(basename "$full_filename" .fasta)
 
-# Use sed to replace everything after ">" with the filename without the extension
-sed -E "s/^(>[^ ]*).*/\1-changlocset:$basename/" "$full_filename" > out.fasta
+# Use sed to replace everything after " " with the filename without the extension
+sed -E "s/^(>[^\s]*).*/\1-changlocset:$basename/" "$full_filename" > out.fasta
