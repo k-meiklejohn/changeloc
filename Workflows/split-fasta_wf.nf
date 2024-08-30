@@ -7,7 +7,7 @@ workflow WF_SPLIT_FASTA {
     main:
     // Split the concatenated FASTA file into chunks based on chunk_size
     split_fasta = RUN_SPLIT_FASTA(concatenated_fa, chunk_size)
-    
+        .flatten()
 
     emit:
     split_fasta              
