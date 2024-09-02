@@ -1,7 +1,7 @@
 process RUN_WOLFPSORT {
     container "wolfpsort"
 
-    publishDir "Output/${dir}/Results"
+    publishDir "Output/${dir}/Results", mode: "copy"
 
 
     input:

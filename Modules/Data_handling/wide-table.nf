@@ -1,6 +1,6 @@
 process RUN_WIDE_TABLE {
     container "changeloc/r"
-    publishDir "Output/${dir}/TSVs/all"
+    publishDir "Output/${dir}/TSVs/all", mode: "copy"
 
     input:
     path all_longtable

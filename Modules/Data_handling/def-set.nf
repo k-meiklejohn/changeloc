@@ -1,5 +1,5 @@
 process RUN_DEF_SET {
-    publishDir "Output/${dir}/Input"
+    publishDir "Output/${dir}/Input", mode: "copy"
 
     input:
     path input_file

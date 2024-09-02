@@ -1,5 +1,5 @@
 process RUN_AGGREGATE {
-    publishDir "Output/${dir}/TSVs/amalg", mode: 'symlink'
+    publishDir "Output/${dir}/TSVs/amalg", mode: 'copy'
     container "changeloc/r"
 
     input:

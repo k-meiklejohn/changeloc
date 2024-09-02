@@ -1,5 +1,5 @@
 process RUN_AUTO_REPORT {
-publishDir "Output/${dir}/Reports"
+publishDir "Output/${dir}/Reports", mode: "copy"
 container "changeloc/python"
 
 input:

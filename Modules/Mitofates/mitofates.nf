@@ -1,7 +1,7 @@
 process RUN_MITOFATES {
     container "mitofates:latest"
 
-    publishDir "Output/${dir}/Results"
+    publishDir "Output/${dir}/Results", mode: "copy"
 
 
 

@@ -1,6 +1,6 @@
 process RUN_SGNL_WIDE_TABLE {
     container "changeloc/r"
-    publishDir "Output/${dir}/TSVs/sgnl"
+    publishDir "Output/${dir}/TSVs/sgnl", mode: "copy"
 
     input:
     path all_longtable

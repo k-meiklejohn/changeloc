@@ -1,7 +1,7 @@
 process RUN_DEEPLOC2 {
     container "deeploc2"
 
-    publishDir "Output/${dir}/Results"
+    publishDir "Output/${dir}/Results", mode: "copy"
 
 
     input:

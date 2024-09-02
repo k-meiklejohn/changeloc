@@ -1,7 +1,7 @@
 process RUN_TPPRED3 {
     container "tppred3"
 
-    publishDir "Output/${dir}/Results"
+    publishDir "Output/${dir}/Results", mode: "copy"
 
 
     input:
