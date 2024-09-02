@@ -1,12 +1,13 @@
 process RUN_WOLFPSORT {
     container "wolfpsort"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
 
 
     input:
     path input_file
     val organism
+    val dir
 
     output:
     path "wolfpsort.out"

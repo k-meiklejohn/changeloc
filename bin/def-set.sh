@@ -13,4 +13,4 @@ full_filename="$1"
 basename=$(basename "$full_filename" .fasta)
 
 # Use sed to replace everything after " " with the filename without the extension
-sed -E "s/(>\w*)/\1-changlocset:$basename/" "$full_filename" > out.fasta
+sed -E "s/(>\w*)(.*)/\1-changlocset:$basename/" "$full_filename" > out.fasta

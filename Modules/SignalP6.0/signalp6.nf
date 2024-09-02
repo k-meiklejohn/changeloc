@@ -1,12 +1,13 @@
 process RUN_SIGNALP6 {
     container "signalp6"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
 
     input:
     path input_file
     val model
     val organism
+    val dir
 
     output:
     path "signalp6.out"

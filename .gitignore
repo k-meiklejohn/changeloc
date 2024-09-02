@@ -1,6 +1,6 @@
 work
 .nextflow*
-*tar.gz
+*.tar.gz
 example.fasta
 ELM
 Deepmito
@@ -8,3 +8,4 @@ Results
 *.out
 *.tsv
 *.html
+Output

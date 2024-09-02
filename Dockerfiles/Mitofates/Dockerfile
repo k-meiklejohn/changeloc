@@ -17,7 +17,7 @@ RUN apt-get update && \
 RUN pip install scipy
 
 # Download and extract libsvm
-RUN wget https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.33.tar.gz -O /tmp/libsvm.tar.gz && \
+RUN wget https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.35.tar.gz -O /tmp/libsvm.tar.gz && \
     mkdir -p /usr/local/libsvm && \
     tar -xzf /tmp/libsvm.tar.gz -C /usr/local/libsvm --strip-components=1 && \
     rm /tmp/libsvm.tar.gz

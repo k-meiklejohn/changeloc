@@ -1,13 +1,14 @@
 process RUN_MITOFATES {
     container "mitofates:latest"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
 
 
 
     input:
     path input_file
     val organism
+    val dir
 
     output:
     path "mitofates.out"

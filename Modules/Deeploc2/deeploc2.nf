@@ -1,12 +1,13 @@
 process RUN_DEEPLOC2 {
     container "deeploc2"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
 
 
     input:
     path input_file
     val model
+    val dir
 
     output:
     path "deeploc2.out"

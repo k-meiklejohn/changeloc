@@ -1,9 +1,10 @@
 process RUN_LONG_TABLE {
     container "changeloc/r"
-    publishDir "TSVs/all"
+    publishDir "Output/${dir}/TSVs/all"
 
     input:
     path prediciton
+    val dir
 
     output:
     path "*.tsv"

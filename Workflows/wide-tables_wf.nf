@@ -8,26 +8,27 @@ include {RUN_AUTO_REPORT} from "../Modules/Report/auto-report.nf"
 workflow WF_WIDE_TABLES{
     take:
     prediction
+    run_name
 
     main:
     
-    all_wide = RUN_WIDE_TABLE(prediction)
+    all_wide = RUN_WIDE_TABLE(prediction, run_name)
         .collect()
-    mito_wide =  RUN_MITO_WIDE_TABLE(prediction)
+    mito_wide =  RUN_MITO_WIDE_TABLE(prediction, run_name)
         .collect()
-    sgnl_wide = RUN_SGNL_WIDE_TABLE(prediction)
+    sgnl_wide = RUN_SGNL_WIDE_TABLE(prediction, run_name)
         .collect()
 
     wide = all_wide
                 .mix(mito_wide, sgnl_wide)
 
-    amalg = RUN_AMALGAMATE(wide)
+    amalg = RUN_AMALGAMATE(wide, run_name)
 
     list_amalg = amalg.collect()
   
-    full = RUN_AGGREGATE(list_amalg)
+    full = RUN_AGGREGATE(list_amalg, run_name)
     
     report_in = amalg.mix(full)
 
-    RUN_AUTO_REPORT(report_in)
+    RUN_AUTO_REPORT(report_in, run_name)
 }

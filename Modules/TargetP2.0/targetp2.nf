@@ -1,12 +1,13 @@
 process RUN_TARGETP2 {
     container "targetp2"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
     
 
     input:
     path input_file
     val organism
+    val dir
 
     output:
     path "targetp2.out"

@@ -1,12 +1,13 @@
 process RUN_TPPRED3 {
     container "tppred3"
 
-    publishDir "Results"
+    publishDir "Output/${dir}/Results"
 
 
     input:
     path input_file
     val organism
+    val dir
 
     output:
     path "tppred3.out"

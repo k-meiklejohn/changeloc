@@ -1,9 +1,10 @@
 process RUN_AMALGAMATE {
-    publishDir "TSVs/amalg", mode: 'symlink'
+    publishDir "Output/${dir}/TSVs/amalg", mode: 'symlink'
     container "changeloc/r"
 
     input:
     val paths
+    val dir
 
     output:
     path "*.tsv"
