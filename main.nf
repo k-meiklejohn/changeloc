@@ -11,20 +11,22 @@ workflow{
 
     // Create a channel from the input FASTA files
     input_sets = Channel.fromPath(params.fasta)
+    println(input_sets)
     currentDate = new Date().format("yyyy-MM-dd_HH-mm-ss")
     if (params.name == null){
-        
         run_name = "${currentDate}-[${workflow.runName}]"
     }
     else{
-    run_name = "${currentDate}_${params.name}-[${workflow.runName}]"
+        run_name = "${currentDate}_${params.name}-[${workflow.runName}]"
     }
+    run_name = "test"
     println("Files will be saved to 'Output/${run_name}'")
 
-
+    println(input_sets)
     // Invoke WF_DEF_SET as a workflow to process the FASTA files
     concatenate_fa = WF_DEF_SET(input_sets, run_name)
-                    .collectFile(newLine: true)
+        .collectFile(name: "Input", newLine: true)
+
 
     split_fasta = WF_SPLIT_FASTA(concatenate_fa, params.chunks)
 
