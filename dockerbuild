@@ -15,27 +15,27 @@ docker build -t mitofates . || echo "Building Mitofates failed"
 
 cd ../SignalP6.0
 echo "Building SignalP 6.0"
-docker build -t signalp6 .
+docker build -t signalp6 . || echo "Building SignalP 6.0 failed"
 
 cd ../TargetP2.0
 echo "Building TargetP 2.0"
-docker build -t targetp2 .
+docker build -t targetp2 . || echo "Building TargetP 2.0 failed"
 
 cd ../TPpred3.0
 echo "Building TPpred 3.0"
-docker build -t tppred3 .
+docker build -t tppred3 . || echo "Building TPpred 3.0 failed"
 
 cd ../WolfPsort
 echo "Building WoLFPsort"
-docker build -t wolfpsort .
+docker build -t wolfpsort . || echo "Building WoLFPsort failed"
 
 cd ../R
 echo "Building Changeloc-R"
-docker build -t changeloc/r .
+docker build -t changeloc/r . || echo "Building Changeloc-R failed"
 
 cd ../Python
 echo "Building Changeloc-Python"
-docker build -t changeloc/python .
+docker build -t changeloc/python . || echo "Building Changeloc-Python failed"
 
 # cd ../
 # docker build .
