@@ -20,7 +20,7 @@ RUN conda update -n base -c defaults conda && \
 
 WORKDIR /signalp6_fast
 
-RUN conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 -c pytorch
+RUN conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 "numpy<2" -c pytorch
 
 RUN pip install signalp-6-package/
 
