@@ -7,6 +7,7 @@ include {RUN_TPPRED3} from '../Modules/TPpred3.0/tppred3.nf'
 include {RUN_DEEPLOC2} from '../Modules/Deeploc2/deeploc2.nf'
 include {RUN_SIGNALP6} from '../Modules/SignalP6.0/signalp6.nf'
 include {RUN_TARGETP2} from '../Modules/TargetP2.0/targetp2.nf'
+include { RUN_TMHMM2 } from '../Modules/TMHMM2.0/tmhmm2.nf'
 
 
 
@@ -55,6 +56,12 @@ workflow WF_PREDICT {
         def signalp6 = RUN_SIGNALP6(split_files, params.signalp6_model, params.org_signalp6, run_name)
             .collectFile(name: "signalp6.out", skip: 1)
         prediction = prediction.mix(signalp6)
+    }
+    
+    if (params.run_tmhmm2) {
+        def tmhmm2 = RUN_TMHMM2(split_files, run_name)
+            .collectFile(name: "tmhmm2.out", skip: 1)
+        prediction = prediction.mix(tmhmm2)
     }
 
 
