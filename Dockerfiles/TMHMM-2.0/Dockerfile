@@ -21,7 +21,7 @@ RUN tar -xvzf tmhmm-2.0c.Linux.tar.gz \
 && rm tmhmm-2.0c.Linux.tar.gz
 
 # Add tmhmm to PATH
-ENV PATH="tmhmm-2.0c/bin/:${PATH}"
+ENV PATH="/tmhmm-2.0c/bin/:${PATH}"
 
 # Ensure the decodeanhmm binary is executable
 RUN chmod +x tmhmm-2.0c/bin/decodeanhmm.Linux_x86_64

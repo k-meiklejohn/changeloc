@@ -5,6 +5,14 @@ input_file <- commandArgs(trailingOnly = TRUE)
 
 file_name <- str_extract(input_file, "^.*?(?=\\.)")
 
+if (input_file == "tmhmm2.out") {
+  table <- read_tsv(input_file, col_names = FALSE)
+  colnames(table)[5] <- "Prediction"
+
+  table <- table[,c(1,5)] %>%
+    mutate(Prediction = gsub("\\D", "", Prediction))
+}
+
 
 if (input_file == "mitofates.out") {
 

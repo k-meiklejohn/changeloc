@@ -21,6 +21,9 @@ sgnl_table <- long_table %>%
         any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~
           "dual_sgnl",
 
+        # Check if prediction is a number relating to transmembrande helices
+        is.numeric(Prediction) ~ "sgnl",
+
         # All other cases
         TRUE ~ "othr"
       )

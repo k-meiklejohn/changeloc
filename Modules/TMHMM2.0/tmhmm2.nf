@@ -1,15 +1,12 @@
 process RUN_TMHMM2 {
-    container "tmhmm2:latest"
-
+    container "tmhmm2"
+    
     publishDir "Output/${dir}/Results", mode: "copy"
-
-
 
     input:
     path input_file
     val dir
  
-
     output:
     path "tmhmm2.out"
 

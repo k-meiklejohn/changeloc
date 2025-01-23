@@ -21,7 +21,10 @@ workflow WF_PREDICT {
 
     main:
 
+    // initialise empty channel to take prediction outputs
     prediction = Channel.empty()
+
+    // run each software if specified
     if (params.run_mitofates) {
         def mitofates = RUN_MITOFATES(split_files, params.org_mitofates, run_name)
             .collectFile(name: "mitofates.out")
@@ -47,7 +50,7 @@ workflow WF_PREDICT {
     }
 
     if (params.run_targetp2) {
-        def targetp2 = RUN_TARGETP2(split_files, params.org_tagetp2, run_name)
+        def targetp2 = RUN_TARGETP2(split_files, params.org_targetp2, run_name)
             .collectFile(name: "targetp2.out", skip: 1)
         prediction = prediction.mix(targetp2)
     }
