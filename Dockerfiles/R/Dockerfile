@@ -11,3 +11,6 @@ RUN apt-get install -y libharfbuzz-dev libfribidi-dev
 RUN apt-get install -y libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 RUN R -e "install.packages('seqinr')"
 RUN R -e "install.packages('tidyverse')"
+RUN R -e "install.packages('BiocManager')"
+RUN R -e "BiocManager::install('clusterProfiler')""
+RUN R -e "BiocManager::install('org.Hs.eg.db')"c
