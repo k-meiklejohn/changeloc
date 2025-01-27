@@ -9,6 +9,7 @@ process RUN_WIDE_TABLE {
     output:
     path "*.tsv"
 
+    script:
     """
     wide-table.R $all_longtable
     """

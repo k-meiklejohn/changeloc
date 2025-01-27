@@ -8,7 +8,7 @@ process RUN_DEF_SET {
     output:
     path "*.fasta"
     
-
+    script:
     """
     def-set.sh $input_file
     """

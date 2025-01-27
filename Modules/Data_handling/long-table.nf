@@ -9,6 +9,7 @@ process RUN_LONG_TABLE {
     output:
     path "*.tsv"
 
+    script:
     """
     long-table.R $prediciton
     """

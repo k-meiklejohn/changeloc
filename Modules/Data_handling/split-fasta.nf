@@ -6,6 +6,7 @@ process RUN_SPLIT_FASTA {
     output:
     path "*.fasta"
 
+    script:
     """
     split-fasta.sh $input_file $chunks
     """

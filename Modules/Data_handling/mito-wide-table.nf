@@ -9,6 +9,7 @@ process RUN_MITO_WIDE_TABLE {
     output:
     path "*.tsv"
 
+    script:
     """
     mito-wide-table.R $all_longtable
     """

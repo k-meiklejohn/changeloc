@@ -9,6 +9,7 @@ process RUN_AMALGAMATE {
     output:
     path "*.tsv"
 
+    script:
     """
     amalgamate.R ${paths.join(' ')}
     """
