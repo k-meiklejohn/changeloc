@@ -1,9 +1,11 @@
-include {RUN_MITO_WIDE_TABLE} from "../Modules/Data_handling/mito-wide-table.nf"
-include {RUN_WIDE_TABLE} from "../Modules/Data_handling/wide-table.nf"
-include {RUN_SGNL_WIDE_TABLE} from "../Modules/Data_handling/sgnl-wide-table.nf"
-include {RUN_AMALGAMATE} from "../Modules/Data_handling/amalgamate.nf"
-include {RUN_AGGREGATE} from "../Modules/Data_handling/aggregate.nf"
-include {RUN_AUTO_REPORT} from "../Modules/Report/auto-report.nf"
+include { RUN_WIDE_TABLE } from '../Modules/Data_handling/wide-table.nf'
+include { RUN_MITO_WIDE_TABLE } from '../Modules/Data_handling/mito-wide-table.nf'
+include { RUN_SGNL_WIDE_TABLE } from '../Modules/Data_handling/sgnl-wide-table.nf'
+include { RUN_AMALGAMATE } from '../Modules/Data_handling/amalgamate.nf'
+include { RUN_AGGREGATE } from '../Modules/Data_handling/aggregate.nf'
+include { RUN_AUTO_REPORT } from '../Modules/Report/auto-report.nf'
+
+
 
 workflow WF_WIDE_TABLES{
     take:

@@ -1,17 +1,12 @@
+include { RUN_MITOFATES } from '../Modules/Prediction/Mitofates/mitofates.nf'
+include { RUN_WOLFPSORT } from '../Modules/Prediction/WoLFPSort/wolfpsort.nf'
+include { RUN_TPPRED3 } from '../Modules/Prediction/TPpred3.0/tppred3.nf'
+include { RUN_DEEPLOC2 } from '../Modules/Prediction/Deeploc2/deeploc2.nf'
+include { RUN_TARGETP2 } from '../Modules/Prediction/TargetP2.0/targetp2.nf'
+include { RUN_SIGNALP6 } from '../Modules/Prediction/SignalP6.0/signalp6.nf'
+include { RUN_TMHMM2 } from '../Modules/Prediction/TMHMM2.0/tmhmm2.nf'
 //workflow module taking fasta file and running through each prediction software.
 
-//include processes from /Modules to run each process
-include {RUN_MITOFATES} from '../Modules/Mitofates/mitofates.nf'
-include {RUN_WOLFPSORT} from '../Modules/WoLFPSort/wolfpsort.nf'
-include {RUN_TPPRED3} from '../Modules/TPpred3.0/tppred3.nf'
-include {RUN_DEEPLOC2} from '../Modules/Deeploc2/deeploc2.nf'
-include {RUN_SIGNALP6} from '../Modules/SignalP6.0/signalp6.nf'
-include {RUN_TARGETP2} from '../Modules/TargetP2.0/targetp2.nf'
-include { RUN_TMHMM2 } from '../Modules/TMHMM2.0/tmhmm2.nf'
-
-
-
-//include {RUN_} from '../Modules/.nf'
 
 
 workflow WF_PREDICT {

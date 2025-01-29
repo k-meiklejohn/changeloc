@@ -1,7 +1,5 @@
 process RUN_TMHMM2 {
     container "tmhmm2"
-    
-    publishDir "Output/${dir}/Results", mode: "copy"
 
     input:
     path input_file

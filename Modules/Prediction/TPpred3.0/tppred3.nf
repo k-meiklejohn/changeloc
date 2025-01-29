@@ -1,9 +1,6 @@
 process RUN_TPPRED3 {
     container "tppred3"
 
-    publishDir "Output/${dir}/Results", mode: "copy"
-
-
     input:
     path input_file
     val organism

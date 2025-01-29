@@ -9,7 +9,7 @@ if (input_file == "tmhmm2.out") {
   table <- read_tsv(input_file, col_names = FALSE)
   colnames(table)[5] <- "Prediction"
 
-  table <- table[,c(1,5)] %>%
+  table <- table[, c(1, 5)] %>%
     mutate(Prediction = gsub("\\D", "", Prediction))
 }
 
@@ -34,9 +34,9 @@ if (input_file == "mitofates.out") {
   unlink(temp_file)
 
   # format Predictions
-  table <- table[,c(1,3,2,4:21)] %>%
+  table <- table[, c(1, 3, 2, 4:21)] %>%
     mutate(table, Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
-                                  Prediction == "Possessing mitochondrial presequence" ~ "mito"))
+                                         Prediction == "Possessing mitochondrial presequence" ~ "mito"))
 
 }
 
@@ -49,7 +49,7 @@ if (input_file == "tppred3.out") {
   table <- table %>%
     distinct(X1, .keep_all = TRUE) %>%
     mutate(Prediction = case_when(Prediction == "Chain" ~ "othr",
-                          Prediction == "Transit peptide" ~ "mito"))
+                                  Prediction == "Transit peptide" ~ "mito"))
 }
 
 if (input_file == "wolfpsort.out") {
@@ -113,20 +113,21 @@ if (input_file == "deeploc2.out") {
   colnames(table)[2] <- "Prediction"
 
   abbreviations <- c(
-  "Nucleus" = "nucl",
-  "Cytoplasm" = "cyto",
-  "Extracellular" = "extr",
-  "Mitochondrion" = "mito",
-  "Cell membrane" = "plas",
-  "Endoplasmic reticulum" = "E.R.",
-  "Chloroplast" = "chlr",
-  "Golgi apparatus" = "golg",
-  "Lysosome/Vacuole" = "lyso",
-  "Peroxisome" = "pero"
-)
+    "Nucleus" = "nucl",
+    "Cytoplasm" = "cyto",
+    "Extracellular" = "extr",
+    "Mitochondrion" = "mito",
+    "Cell membrane" = "plas",
+    "Endoplasmic reticulum" = "E.R.",
+    "Chloroplast" = "chlr",
+    "Golgi apparatus" = "golg",
+    "Lysosome/Vacuole" = "lyso",
+    "Peroxisome" = "pero"
+  )
+}
 
 #function to map Predictions to abbreviations
-map_Prediction <- function(Predictions, abbreviations) {
+map_prediction <- function(Predictions, abbreviations) {
   sapply(Predictions, function(Prediction) {
     if (grepl("\\|", Prediction)) {
       components <- strsplit(Prediction, "\\|")[[1]]
@@ -138,13 +139,6 @@ map_Prediction <- function(Predictions, abbreviations) {
   })
 }
 
-#use above function to change abbreviations to correct format
-table <- table %>%
-  mutate(Prediction = map_Prediction(Prediction, abbreviations))
-
-}
-
-
 #remanes first column to seqID and makes a list of columns to use to create data
 colnames(table)[1] <- "seqID"
 colnames(table)[2] <- "Prediction"
@@ -152,9 +146,14 @@ colnames(table)[2] <- "Prediction"
 
 # Give set and seqid proprely to each entry
 table <- table %>%
-    mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
-    mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
+  mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
+  mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
 
+  #use above function to change abbreviations to correct format
+  table <- table %>%
+    mutate(Prediction = map_Prediction(Prediction, abbreviations))
+
+}
 
 #this gives general non comparative tsv to work with in other reports
 write_tsv(table, file = paste0(file_name, ".long.tsv"))

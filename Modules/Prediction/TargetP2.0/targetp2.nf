@@ -1,8 +1,6 @@
 process RUN_TARGETP2 {
     container "targetp2"
 
-    publishDir "Output/${dir}/Results", mode: "copy"
-    
 
     input:
     path input_file

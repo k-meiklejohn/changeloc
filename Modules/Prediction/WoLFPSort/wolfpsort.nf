@@ -1,9 +1,6 @@
 process RUN_WOLFPSORT {
     container "wolfpsort"
 
-    publishDir "Output/${dir}/Results", mode: "copy"
-
-
     input:
     path input_file
     val organism

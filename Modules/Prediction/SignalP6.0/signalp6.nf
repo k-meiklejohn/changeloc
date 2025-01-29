@@ -1,8 +1,6 @@
 process RUN_SIGNALP6 {
     container "signalp6"
 
-    publishDir "Output/${dir}/Results", mode: "copy"
-
     input:
     path input_file
     val model
