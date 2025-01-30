@@ -7,10 +7,10 @@ process RUN_TPPRED3 {
     val dir
 
     output:
-    path "tppred3.out"
+    path "tppred3.out.unmapped"
 
     script:
     """
-    /tppred3/tppred3.py -f $input_file -o tppred3.out -k $organism
+    /tppred3/tppred3.py -f $input_file -o tppred3.out.unmapped -k $organism
     """
 }

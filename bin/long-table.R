@@ -5,7 +5,7 @@ input_file <- commandArgs(trailingOnly = TRUE)
 
 file_name <- str_extract(input_file, "^.*?(?=\\.)")
 
-if (input_file == "tmhmm2.out") {
+if (file_name == "tmhmm2") {
   table <- read_tsv(input_file, col_names = FALSE)
   colnames(table)[5] <- "Prediction"
 
@@ -14,7 +14,7 @@ if (input_file == "tmhmm2.out") {
 }
 
 
-if (input_file == "mitofates.out") {
+if (file_name == "mitofates") {
 
   #create tempfile
   temp_file <- tempfile()
@@ -40,7 +40,7 @@ if (input_file == "mitofates.out") {
 
 }
 
-if (input_file == "tppred3.out") {
+if (file_name == "tppred3") {
   table <- read_tsv(input_file, col_names = FALSE)
   table$X2 <- NULL
 
@@ -52,7 +52,7 @@ if (input_file == "tppred3.out") {
                                   Prediction == "Transit peptide" ~ "mito"))
 }
 
-if (input_file == "wolfpsort.out") {
+if (file_name == "wolfpsort") {
   temp_file <- tempfile()
 
   file_content <- readLines(input_file)
@@ -89,7 +89,7 @@ if (input_file == "wolfpsort.out") {
 
 }
 
-if (input_file == "targetp2.out") {
+if (file_name == "targetp2") {
   table <- read_tsv(input_file)
 
   colnames(table)[2] <- "Prediction"
@@ -98,7 +98,7 @@ if (input_file == "targetp2.out") {
                                   Prediction == "mTP" ~ "mitp"))
 }
 
-if (input_file == "signalp6.out") {
+if (file_name == "signalp6") {
   table <- read_tsv(input_file)
 
   colnames(table)[2] <- "Prediction"
@@ -107,53 +107,49 @@ if (input_file == "signalp6.out") {
                                   Prediction == "SP" ~ "sgnl"))
 }
 
-if (input_file == "deeploc2.out") {
+if (file_name == "deeploc2") {
   table <- read_csv(input_file)
 
   colnames(table)[2] <- "Prediction"
 
-  abbreviations <- c(
-    "Nucleus" = "nucl",
-    "Cytoplasm" = "cyto",
-    "Extracellular" = "extr",
-    "Mitochondrion" = "mito",
-    "Cell membrane" = "plas",
-    "Endoplasmic reticulum" = "E.R.",
-    "Chloroplast" = "chlr",
-    "Golgi apparatus" = "golg",
-    "Lysosome/Vacuole" = "lyso",
-    "Peroxisome" = "pero"
-  )
-}
+
+abbreviations <- c(
+  "Nucleus" = "nucl",
+  "Cytoplasm" = "cyto",
+  "Extracellular" = "extr",
+  "Mitochondrion" = "mito",
+  "Cell membrane" = "plas",
+  "Endoplasmic reticulum" = "E.R.",
+  "Chloroplast" = "chlr",
+  "Golgi apparatus" = "golg",
+  "Lysosome/Vacuole" = "lyso",
+  "Peroxisome" = "pero"
+)
 
 #function to map Predictions to abbreviations
-map_prediction <- function(Predictions, abbreviations) {
-  sapply(Predictions, function(Prediction) {
-    if (grepl("\\|", Prediction)) {
-      components <- strsplit(Prediction, "\\|")[[1]]
+map_abbrev <- function(pred, abbreviations) {
+  sapply(pred, function(prediction) {
+    if (grepl("\\|", prediction)) {
+      components <- strsplit(pred, "\\|")[[1]]
       abbrev_components <- abbreviations[components]
       paste(sort(abbrev_components), collapse = "_")
     } else {
-      abbreviations[Prediction]
+      abbreviations[prediction]
     }
   })
 }
+
+  #use above function to change abbreviations to correct format
+  table <- table %>%
+    mutate(Prediction = map_abbrev(Prediction, abbreviations))
+
+
+}
+
 
 #remanes first column to seqID and makes a list of columns to use to create data
 colnames(table)[1] <- "seqID"
 colnames(table)[2] <- "Prediction"
 
-
-# Give set and seqid proprely to each entry
-table <- table %>%
-  mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
-  mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
-
-  #use above function to change abbreviations to correct format
-  table <- table %>%
-    mutate(Prediction = map_Prediction(Prediction, abbreviations))
-
-}
-
 #this gives general non comparative tsv to work with in other reports
-write_tsv(table, file = paste0(file_name, ".long.tsv"))
+write_tsv(table, file = paste0(file_name, ".unmapped.long.tsv"))

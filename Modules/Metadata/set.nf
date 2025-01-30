@@ -3,7 +3,7 @@ process RUN_SET {
     container "changeloc/r"
 
     input:
-    path long
+    path table
     val dir
 
     output:
@@ -11,7 +11,7 @@ process RUN_SET {
 
     script:
     """
-    set.R $long
+    set.R $table
     """
 
 }

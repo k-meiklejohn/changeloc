@@ -11,12 +11,12 @@ workflow WF_CLEAN_RESULT {
     map
 
     main:
-    mapped = RUN_MAP_FASTA(prediction, map, run_name)
-                .view()
-    tsv   = RUN_LONG_TABLE(mapped)
-                .view()
+    cleaned = RUN_LONG_TABLE(prediction)
 
+    mapped  = RUN_MAP_FASTA(cleaned, map, run_name)
+
+    set     = RUN_SET(mapped, run_name)
 
     emit:
-    tsv
+    set
 }

@@ -8,11 +8,11 @@ process RUN_DEEPLOC2 {
     val dir
 
     output:
-    path "deeploc2.out"
+    path "deeploc2.out.unmapped"
 
     script:
     """
     deeploc2 -f $input_file -o deeplocdir -m $model
-    mv deeplocdir/* deeploc2.out
+    mv deeplocdir/* deeploc2.out.unmapped
     """
 }

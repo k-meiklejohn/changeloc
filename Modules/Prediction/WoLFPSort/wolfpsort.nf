@@ -7,10 +7,10 @@ process RUN_WOLFPSORT {
     val dir
 
     output:
-    path "wolfpsort.out"
+    path "wolfpsort.out.unmapped"
 
     script:
     """
-    runWolfPsortSummary $organism < $input_file > wolfpsort.out
+    runWolfPsortSummary $organism < $input_file > wolfpsort.out.unmapped
     """
 }

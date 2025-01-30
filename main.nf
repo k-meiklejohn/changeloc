@@ -1,6 +1,8 @@
 // main.nf
 include {WF_PREDICT} from './Workflows/predict_wf.nf'
-include {WF_CLEAN_RESULT} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_GEN} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_MITO} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_SGNL} from './Workflows/clean-result_wf.nf'
 include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
 include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
 
@@ -28,12 +30,20 @@ workflow{
 
 
     // send to prediction software
-    prediction = WF_PREDICT(fasta, run_name)
+    all_prediction = WF_PREDICT(fasta, run_name)
+    general = all_prediction.general_prediction
+    mito = all_prediction.mito_prediction
+    sgnl = all_prediction.sgnl_prediction
 
     // long table creation
-    long_table = WF_CLEAN_RESULT(prediction, run_name, map)
+    gen_long_table = CLEAN_GEN(general, run_name, map)
+        .view()
+    mito_long_table = CLEAN_MITO(mito, run_name, map)
+        .view()
+    sgnl_long_table = CLEAN_SGNL(sgnl, run_name, map)
+        .view()
 
     // wide tables creation
-    WF_WIDE_TABLES(long_table, run_name)
+    wide_table = WF_WIDE_TABLES(long_table, run_name)
 
 }

@@ -7,10 +7,10 @@ process RUN_MITOFATES {
     val dir
 
     output:
-    path "mitofates.out"
+    path "mitofates.out.unmapped"
 
     script:
     """
-    perl /MitoFates/MitoFates.pl $input_file $organism > mitofates.out
+    perl /MitoFates/MitoFates.pl $input_file $organism > mitofates.out.unmapped
     """
 }

@@ -8,11 +8,11 @@ process RUN_TARGETP2 {
     val dir
 
     output:
-    path "targetp2.out"
+    path "targetp2.out.unmapped"
 
     script:
     """
     targetp -fasta $input_file -org $organism
-    mv *.targetp2 targetp2.out
+    mv *.targetp2 targetp2.out.unmapped
     """
 }

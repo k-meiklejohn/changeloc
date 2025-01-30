@@ -4,11 +4,11 @@ process RUN_MAP_FASTA {
 
     input:
     path table
-    path map
+    each map
     val dir
 
     output:
-    path "*.mapped"
+    path "*.tsv"
 
     script:
     """

@@ -22,7 +22,7 @@ sgnl_table <- long_table %>%
           "dual_sgnl",
 
         # Check if prediction is a number relating to transmembrande helices
-        is.numeric(Prediction) ~ "sgnl",
+        Prediction >= 1 ~ "sgnl",
 
         # All other cases
         TRUE ~ "othr"

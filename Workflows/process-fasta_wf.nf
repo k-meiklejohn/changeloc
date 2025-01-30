@@ -19,7 +19,7 @@ set_def = RUN_DEF_SET(fasta, run_name)
 // gives each renamed entry a unique identifier and maps it to original name
 id = RUN_GIVE_ID(set_def)
 fasta = id.fasta
-map = id.map
+map = id.map.collect()
 
 
 // Split the concatenated FASTA file into chunks based on chunk_size

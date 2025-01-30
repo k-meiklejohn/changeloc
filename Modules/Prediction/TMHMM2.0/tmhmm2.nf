@@ -1,4 +1,5 @@
 process RUN_TMHMM2 {
+    publishDir "test"
     container "tmhmm2"
 
     input:
@@ -6,10 +7,10 @@ process RUN_TMHMM2 {
     val dir
  
     output:
-    path "tmhmm2.out"
+    path "tmhmm2.out.unmapped"
 
     script:
     """
-    tmhmm -short $input_file > tmhmm2.out
+    tmhmm -short $input_file > tmhmm2.out.unmapped
     """
 }

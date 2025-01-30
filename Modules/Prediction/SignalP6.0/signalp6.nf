@@ -8,11 +8,11 @@ process RUN_SIGNALP6 {
     val dir
 
     output:
-    path "signalp6.out"
+    path "signalp6.out.unmapped"
 
     script:
     """
     signalp6 --fastafile $input_file --organism $organism --output_dir signalp6  --format none -m $model
-    mv signalp6/prediction_results.txt signalp6.out
+    mv signalp6/prediction_results.txt signalp6.out.unmapped
     """
 }

@@ -17,53 +17,68 @@ workflow WF_PREDICT {
     main:
 
     // initialise empty channel to take prediction outputs
-    prediction = Channel.empty()
+    general_prediction = Channel.empty()
+    mito_prediction = Channel.empty()
+    sgnl_prediction = Channel.empty()
 
     // run each software if specified
     if (params.run_mitofates) {
         def mitofates = RUN_MITOFATES(split_files, params.org_mitofates, run_name)
             .collectFile(name: "mitofates.out")
-        prediction = prediction.mix(mitofates)
+        mito_prediction = mito_prediction.mix(mitofates)
+        general_prediction = general_prediction.mix(mitofates)
+
     }
 
     if (params.run_wolfpsort) {
         def wolfpsort = RUN_WOLFPSORT(split_files, params.org_wolfpsort, run_name)
             .collectFile(name: "wolfpsort.out", skip: 1)
-        prediction = prediction.mix(wolfpsort)
+        mito_prediction = mito_prediction.mix(wolfpsort)
+        sgnl_prediction = sgnl_prediction.mix(wolfpsort)
+        general_prediction = general_prediction.mix(wolfpsort)
+
     }
 
     if (params.run_tppred3) {
         def tppred3 = RUN_TPPRED3(split_files, params.org_tppred3, run_name)
             .collectFile(name: "tppred3.out", skip: 1)
-        prediction = prediction.mix(tppred3)
+        mito_prediction = mito_prediction.mix(tppred3)
+        general_prediction = general_prediction.mix(tppred3)
+
     }
 
     if (params.run_deeploc2) {
         def deeploc2 = RUN_DEEPLOC2(split_files, params.deeploc2_model, run_name)
             .collectFile(name: "deeploc2.out")
-        prediction = prediction.mix(deeploc2)
+        mito_prediction = mito_prediction.mix(deeploc2)
+        sgnl_prediction = sgnl_prediction.mix(deeploc2)
+        general_prediction = general_prediction.mix(deeploc2)
     }
 
     if (params.run_targetp2) {
         def targetp2 = RUN_TARGETP2(split_files, params.org_targetp2, run_name)
             .collectFile(name: "targetp2.out", skip: 1)
-        prediction = prediction.mix(targetp2)
+        mito_prediction = mito_prediction.mix(targetp2)
+        general_prediction = general_prediction.mix(targetp2)    
     }
 
     if (params.run_signalp6) {
         def signalp6 = RUN_SIGNALP6(split_files, params.signalp6_model, params.org_signalp6, run_name)
             .collectFile(name: "signalp6.out", skip: 1)
-        prediction = prediction.mix(signalp6)
+        sgnl_prediction = sgnl_prediction.mix(signalp6)
+        general_prediction = general_prediction.mix(signalp6)    
     }
     
     if (params.run_tmhmm2) {
         def tmhmm2 = RUN_TMHMM2(split_files, run_name)
-            .collectFile(name: "tmhmm2.out", skip: 1)
-        prediction = prediction.mix(tmhmm2)
+            .collectFile(name: "tmhmm2.out")
+        sgnl_prediction = sgnl_prediction.mix(tmhmm2)
+        general_prediction = general_prediction.mix(tmhmm2)
     }
-
 
     // Emit the combined prediction results
     emit:
-    prediction
+    general_prediction
+    sgnl_prediction
+    mito_prediction
 }
