@@ -9,6 +9,7 @@ process RUN_AGGREGATE {
     output:
     path "*.tsv"
 
+    script:
     """
     aggregate.R ${paths.join(' ')}
     """

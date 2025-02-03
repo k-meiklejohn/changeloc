@@ -1,15 +1,17 @@
-process RUN_LONG_TABLE {
-    container "changeloc/r"
+process RUN_SET {
     publishDir "Output/${dir}/TSVs/all", mode: "copy"
+    container "changeloc/r"
 
     input:
-    path prediciton
+    path table
     val dir
 
     output:
     path "*.tsv"
 
+    script:
     """
-    long-table.R $prediciton
+    set.R $table
     """
+
 }

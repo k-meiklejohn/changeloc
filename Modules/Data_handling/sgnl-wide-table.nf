@@ -9,6 +9,7 @@ process RUN_SGNL_WIDE_TABLE {
     output:
     path "*.tsv"
 
+    script:
     """
     sgnl-wide-table.R $all_longtable
     """

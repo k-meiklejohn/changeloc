@@ -5,8 +5,16 @@ input_file <- commandArgs(trailingOnly = TRUE)
 
 file_name <- str_extract(input_file, "^.*?(?=\\.)")
 
+if (file_name == "tmhmm2") {
+  table <- read_tsv(input_file, col_names = FALSE)
+  colnames(table)[5] <- "Prediction"
 
-if (input_file == "mitofates.out") {
+  table <- table[, c(1, 5)] %>%
+    mutate(Prediction = gsub("\\D", "", Prediction))
+}
+
+
+if (file_name == "mitofates") {
 
   #create tempfile
   temp_file <- tempfile()
@@ -26,13 +34,13 @@ if (input_file == "mitofates.out") {
   unlink(temp_file)
 
   # format Predictions
-  table <- table[,c(1,3,2,4:21)] %>%
+  table <- table[, c(1, 3, 2, 4:21)] %>%
     mutate(table, Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
-                                  Prediction == "Possessing mitochondrial presequence" ~ "mito"))
+                                         Prediction == "Possessing mitochondrial presequence" ~ "mito"))
 
 }
 
-if (input_file == "tppred3.out") {
+if (file_name == "tppred3") {
   table <- read_tsv(input_file, col_names = FALSE)
   table$X2 <- NULL
 
@@ -41,10 +49,10 @@ if (input_file == "tppred3.out") {
   table <- table %>%
     distinct(X1, .keep_all = TRUE) %>%
     mutate(Prediction = case_when(Prediction == "Chain" ~ "othr",
-                          Prediction == "Transit peptide" ~ "mito"))
+                                  Prediction == "Transit peptide" ~ "mito"))
 }
 
-if (input_file == "wolfpsort.out") {
+if (file_name == "wolfpsort") {
   temp_file <- tempfile()
 
   file_content <- readLines(input_file)
@@ -81,7 +89,7 @@ if (input_file == "wolfpsort.out") {
 
 }
 
-if (input_file == "targetp2.out") {
+if (file_name == "targetp2") {
   table <- read_tsv(input_file)
 
   colnames(table)[2] <- "Prediction"
@@ -90,7 +98,7 @@ if (input_file == "targetp2.out") {
                                   Prediction == "mTP" ~ "mitp"))
 }
 
-if (input_file == "signalp6.out") {
+if (file_name == "signalp6") {
   table <- read_tsv(input_file)
 
   colnames(table)[2] <- "Prediction"
@@ -99,12 +107,13 @@ if (input_file == "signalp6.out") {
                                   Prediction == "SP" ~ "sgnl"))
 }
 
-if (input_file == "deeploc2.out") {
+if (file_name == "deeploc2") {
   table <- read_csv(input_file)
 
   colnames(table)[2] <- "Prediction"
 
-  abbreviations <- c(
+
+abbreviations <- c(
   "Nucleus" = "nucl",
   "Cytoplasm" = "cyto",
   "Extracellular" = "extr",
@@ -118,21 +127,22 @@ if (input_file == "deeploc2.out") {
 )
 
 #function to map Predictions to abbreviations
-map_Prediction <- function(Predictions, abbreviations) {
-  sapply(Predictions, function(Prediction) {
-    if (grepl("\\|", Prediction)) {
-      components <- strsplit(Prediction, "\\|")[[1]]
+map_abbrev <- function(pred, abbreviations) {
+  sapply(pred, function(prediction) {
+    if (grepl("\\|", prediction)) {
+      components <- strsplit(pred, "\\|")[[1]]
       abbrev_components <- abbreviations[components]
       paste(sort(abbrev_components), collapse = "_")
     } else {
-      abbreviations[Prediction]
+      abbreviations[prediction]
     }
   })
 }
 
-#use above function to change abbreviations to correct format
-table <- table %>%
-  mutate(Prediction = map_Prediction(Prediction, abbreviations))
+  #use above function to change abbreviations to correct format
+  table <- table %>%
+    mutate(Prediction = map_abbrev(Prediction, abbreviations))
+
 
 }
 
@@ -141,12 +151,5 @@ table <- table %>%
 colnames(table)[1] <- "seqID"
 colnames(table)[2] <- "Prediction"
 
-
-# Give set and seqid proprely to each entry
-table <- table %>%
-    mutate(set = str_extract(seqID, "(?<=changlocset:)\\w+"))  %>%
-    mutate(seqID = str_extract(seqID, "^[^-]+(?=-changlocset)"))
-
-
 #this gives general non comparative tsv to work with in other reports
-write_tsv(table, file = paste0(file_name, ".long.tsv"))
+write_tsv(table, file = paste0(file_name, ".unmapped.long.tsv"))

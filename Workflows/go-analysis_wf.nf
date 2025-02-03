@@ -1,4 +1,4 @@
-include {RUN_DEF_SET} from "../Modules/Data_handling/def-set.nf"
+include { RUN_DEF_SET } from '../Modules/Sequence/def-set.nf'
 
 workflow WF_DEF_SET {
 take:

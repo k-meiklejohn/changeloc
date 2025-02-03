@@ -9,6 +9,7 @@ val dir
 output:
 path "*.html"
 
+script:
 """
 auto-report.py $tsv
 """

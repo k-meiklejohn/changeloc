@@ -1,13 +1,13 @@
 // main.nf
 include {WF_PREDICT} from './Workflows/predict_wf.nf'
-include {WF_LONG_TABLE} from './Workflows/long-table_wf.nf'
-include {WF_DEF_SET} from './Workflows/def-set_wf.nf'
-include {WF_SPLIT_FASTA} from './Workflows/split-fasta_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_GEN} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_MITO} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT as CLEAN_SGNL} from './Workflows/clean-result_wf.nf'
 include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
+include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
 
 // Main workflow
 workflow{
-
 
     // Create a channel from the input FASTA files
     input_sets = Channel.fromPath(params.fasta)
@@ -22,18 +22,20 @@ workflow{
 
     println("Files will be saved to 'Output/${run_name}'")
 
-    // Invoke WF_DEF_SET as a workflow to process the FASTA files
-    concatenate_fa = WF_DEF_SET(input_sets, run_name)
-        .collectFile(name: "Input", newLine: true)
 
+    process_fasta = WF_PROCESS_FASTA(input_sets, run_name, params.chunks)
+    map = process_fasta.map
+    fasta = process_fasta.fasta
 
-    split_fasta = WF_SPLIT_FASTA(concatenate_fa, params.chunks)
 
     // send to prediction software
-    prediction = WF_PREDICT(split_fasta, run_name)
+    prediction = WF_PREDICT(fasta, run_name)
+
+
 
     // long table creation
-    long_table = WF_LONG_TABLE(prediction, run_name)
+    long_table = CLEAN_GEN(prediction, run_name, map)
+        .view()
 
     // wide tables creation
     wide_table = WF_WIDE_TABLES(long_table, run_name)
