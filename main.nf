@@ -9,7 +9,6 @@ include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
 // Main workflow
 workflow{
 
-
     // Create a channel from the input FASTA files
     input_sets = Channel.fromPath(params.fasta)
     
@@ -30,17 +29,12 @@ workflow{
 
 
     // send to prediction software
-    all_prediction = WF_PREDICT(fasta, run_name)
-    general = all_prediction.general_prediction
-    mito = all_prediction.mito_prediction
-    sgnl = all_prediction.sgnl_prediction
+    prediction = WF_PREDICT(fasta, run_name)
+
+
 
     // long table creation
-    gen_long_table = CLEAN_GEN(general, run_name, map)
-        .view()
-    mito_long_table = CLEAN_MITO(mito, run_name, map)
-        .view()
-    sgnl_long_table = CLEAN_SGNL(sgnl, run_name, map)
+    long_table = CLEAN_GEN(prediction, run_name, map)
         .view()
 
     // wide tables creation

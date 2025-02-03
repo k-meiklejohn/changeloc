@@ -79,6 +79,5 @@ workflow WF_PREDICT {
     // Emit the combined prediction results
     emit:
     general_prediction
-    sgnl_prediction
-    mito_prediction
+
 }
