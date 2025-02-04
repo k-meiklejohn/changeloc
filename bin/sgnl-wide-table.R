@@ -1,5 +1,6 @@
 #!/bin/env Rscript
 library(tidyverse)
+library(stringr)
 
 input_file <- commandArgs(trailingOnly = TRUE)
 
@@ -8,7 +9,9 @@ file_name <- str_extract(input_file, "^.*?(?=\\.)")
 long_table <- read_tsv(input_file)
 
 # List of specific abbreviations to check
-abbreviations <- c("sgnl", "golg", "E.R.", "lyso", "plas", "extr")
+abbreviations <- c("sgnl", "golg", "E.R.", "lyso", "plas", "extr", "memb")
+
+pattern <- paste(abbreviations, collapse = "|")
 
 # Modify the 'Prediction' column based on the given conditions
 sgnl_table <- long_table %>%
@@ -17,12 +20,8 @@ sgnl_table <- long_table %>%
         # If Prediction matches any abbreviation directly
         Prediction %in% abbreviations ~ "sgnl",
 
-        # If Prediction contains any abbreviation combined with another part
-        any(sapply(abbreviations, function(x) grepl(x, Prediction))) ~
-          "dual_sgnl",
-
-        # Check if prediction is a number relating to transmembrande helices
-        Prediction >= 1 ~ "sgnl",
+        # Contains one of the abbreviations (and is not an exact match)
+        str_detect(Prediction, pattern) ~ "dual_sgnl",
 
         # All other cases
         TRUE ~ "othr"

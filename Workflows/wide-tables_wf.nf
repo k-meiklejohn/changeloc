@@ -15,18 +15,20 @@ workflow WF_WIDE_TABLES{
     main:
     
     keep_mito = [
-        "mitofates.long.tsv",
-        "tppred3.long.tsv",
-        "deeploc2.long.tsv",
-        "targetp2.long.tsv",
-        "wolfpsort.long.tsv"]
+        "mitofates",
+        "tppred3",
+        "deeploc2",
+        "targetp2",
+        "wolfpsort",
+        "targetp2"]
     
 
     keep_sgnl = [
-        "signalp6.long.tsv",
-        "targetp2.long.tsv",
-        "wolfpsort.long.tsv",
-        "deeploc2.long.tsv"]
+        "signalp6",
+        "targetp2",
+        "wolfpsort",
+        "deeploc2",
+        "tmhmm2"]
     
 
 

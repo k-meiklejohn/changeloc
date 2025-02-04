@@ -35,7 +35,6 @@ workflow{
 
     // long table creation
     long_table = CLEAN_GEN(prediction, run_name, map)
-        .view()
 
     // wide tables creation
     wide_table = WF_WIDE_TABLES(long_table, run_name)

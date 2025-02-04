@@ -8,9 +8,13 @@ file_name <- str_extract(input_file, "^.*?(?=\\.)")
 if (file_name == "tmhmm2") {
   table <- read_tsv(input_file, col_names = FALSE)
   colnames(table)[5] <- "Prediction"
-
+  
   table <- table[, c(1, 5)] %>%
-    mutate(Prediction = gsub("\\D", "", Prediction))
+    mutate(Prediction = (sub("\\D", "", Prediction)))
+  table$Prediction <- as.numeric(as.character(table$Prediction))
+  table <- table %>%
+    mutate(Prediction = case_when(Prediction != 0 ~ "memb",
+                                  TRUE ~ "othr"))
 }
 
 
