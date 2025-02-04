@@ -14,29 +14,26 @@ workflow WF_WIDE_TABLES{
 
     main:
     
-    keep_mito = channel.fromList([
-        ["mitofates.long.tsv"],
-        ["tppred3.long.tsv"],
-        ["deeploc2.long.tsv"],
-        ["targetp2.long.tsv"],
-        ["wolfpsort.long.tsv"]
-    ])
+    keep_mito = [
+        "mitofates.long.tsv",
+        "tppred3.long.tsv",
+        "deeploc2.long.tsv",
+        "targetp2.long.tsv",
+        "wolfpsort.long.tsv"]
+    
 
-    keep_sgnl = channel.fromList([
-        ["signalp6.long.tsv"],
-        ["targetp2.long.tsv"],
-        ["wolfpsort.long.tsv"],
-        ["deeploc2.long.tsv"]
-    ])
-
-    prediction.view()
-    keep_mito.view()
-    keep_sgnl.view()
+    keep_sgnl = [
+        "signalp6.long.tsv",
+        "targetp2.long.tsv",
+        "wolfpsort.long.tsv",
+        "deeploc2.long.tsv"]
+    
 
 
-    prediction_mito = prediction.filter { row -> keep_mito.contains(row[0]) }.view()
-    prediction_sgnl = prediction.filter { row -> keep_sgnl.contains(row[0]) }.view()
-
+    prediction_mito = prediction.filter { path -> 
+        keep_mito.any { prefix -> path.getName().startsWith(prefix) }}
+    prediction_sgnl = prediction.filter { path -> 
+        keep_sgnl.any { prefix -> path.getName().startsWith(prefix) }}
 
 
     all_wide = RUN_WIDE_TABLE(prediction, run_name)
