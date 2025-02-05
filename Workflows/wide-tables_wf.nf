@@ -38,23 +38,19 @@ workflow WF_WIDE_TABLES{
         keep_sgnl.any { prefix -> path.getName().startsWith(prefix) }}
 
 
-    all_wide = RUN_WIDE_TABLE(prediction, run_name)
-        .collect()
-    mito_wide =  RUN_MITO_WIDE_TABLE(prediction_mito, run_name)
-        .collect()
-    sgnl_wide = RUN_SGNL_WIDE_TABLE(prediction_sgnl, run_name)
-        .collect()
+    all = RUN_WIDE_TABLE(prediction, run_name)
+    mito =  RUN_MITO_WIDE_TABLE(prediction_mito, run_name)
+    sgnl = RUN_SGNL_WIDE_TABLE(prediction_sgnl, run_name)
 
-    wide = all_wide
-                .mix(mito_wide, sgnl_wide)
+    full = all.collect().mix(mito.collect(), sgnl.collect())
 
-    amalg = RUN_AMALGAMATE(wide, run_name)
+    amalg = RUN_AMALGAMATE(full, run_name)
 
-    list_amalg = amalg.collect()
-  
-    full = RUN_AGGREGATE(list_amalg, run_name)
+
     
-    report_in = amalg.mix(full)
+    emit:
+    mito
+    sgnl
+    amalg
 
-    RUN_AUTO_REPORT(report_in, run_name)
 }

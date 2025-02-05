@@ -30,12 +30,16 @@ echo "Building WoLFPsort"
 docker build -t wolfpsort . || echo "Building WoLFPsort failed"
 
 cd ../R
-echo "Building Changeloc-R"
+echo "Building Changeloc-R, this will take a while ..."
 docker build -t changeloc/r . || echo "Building Changeloc-R failed"
 
 cd ../Python
 echo "Building Changeloc-Python"
 docker build -t changeloc/python . || echo "Building Changeloc-Python failed"
+
+cd ../TMHMM2.0
+echo "Building TMHMM2.0"
+docker build -t tmhmm2 . || echo "Building TMHMM2.0 failed"
 
 # cd ../
 # docker build .

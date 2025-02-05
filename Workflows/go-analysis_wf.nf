@@ -1,12 +1,12 @@
-include { RUN_DEF_SET } from '../Modules/Sequence/def-set.nf'
+include { RUN_GO_ANALYSIS } from '../Modules/Analysis/go-analysis.nf'
 
-workflow WF_DEF_SET {
+workflow WF_GO_ANALYSIS{
 take:
-fasta
+prediction
 run_name
 
 main:
-output = RUN_DEF_SET(fasta, run_name)
+output = RUN_GO_ANALYSIS(prediction, run_name)
 
 emit:
 output

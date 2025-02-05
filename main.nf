@@ -5,6 +5,8 @@ include {WF_CLEAN_RESULT as CLEAN_MITO} from './Workflows/clean-result_wf.nf'
 include {WF_CLEAN_RESULT as CLEAN_SGNL} from './Workflows/clean-result_wf.nf'
 include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
 include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
+include { WF_REPORT } from './Workflows/report_wf.nf'
+include { WF_GO_ANALYSIS } from './Workflows/go-analysis_wf.nf'
 
 // Main workflow
 workflow{
@@ -16,8 +18,11 @@ workflow{
     if (params.name == null){
         run_name = "${currentDate}-[${workflow.runName}]"
     }
-    else{
-        run_name = "${currentDate}_${params.name}-[${workflow.runName}]"
+    else if (params.name == "test") {
+        run_name = "test"
+    }
+    else {
+    run_name = "${currentDate}_${params.name}-[${workflow.runName}]"
     }
 
     println("Files will be saved to 'Output/${run_name}'")
@@ -37,6 +42,10 @@ workflow{
     long_table = CLEAN_GEN(prediction, run_name, map)
 
     // wide tables creation
-    wide_table = WF_WIDE_TABLES(long_table, run_name)
+    compare = WF_WIDE_TABLES(long_table, run_name)
+
+    WF_GO_ANALYSIS(compare.amalg, run_name)
+
+    WF_REPORT(compare.amalg, run_name)
 
 }

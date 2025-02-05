@@ -1,17 +1,17 @@
 process RUN_GO_ANALYSIS {
-    container "changeloc/R"
-    // publishDir "Output/${dir}/Input", mode: "copy"
+    container "changeloc/r"
+    publishDir "Output/${dir}/GO_analysis", mode: "copy"
 
     input:
     path input_file
     val dir
 
     output:
-    path
-    
+    path "*.csv"
+
     
     script:
     """
-    go-analysis.R ${paths.join(' ')}
+    go-analysis.R $input_file
     """
 }

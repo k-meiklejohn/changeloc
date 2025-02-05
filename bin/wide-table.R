@@ -14,7 +14,7 @@ for_pivot <- columns[-c(1)]
 
 # pivots the table to compare Prediction between sets
 wide_table <- long_table %>%
-    pivot_wider(names_from = set, values_from = all_of(for_pivot))
+  pivot_wider(names_from = set, values_from = all_of(for_pivot))
 
 first <- TRUE
 for (i in sets){
