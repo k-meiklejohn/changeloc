@@ -26,17 +26,13 @@ workflow{
     }
 
     println("Files will be saved to 'Output/${run_name}'")
-
-
+    
     process_fasta = WF_PROCESS_FASTA(input_sets, run_name, params.chunks)
     map = process_fasta.map
     fasta = process_fasta.fasta
 
-
     // send to prediction software
     prediction = WF_PREDICT(fasta, run_name)
-
-
 
     // long table creation
     long_table = CLEAN_GEN(prediction, run_name, map)

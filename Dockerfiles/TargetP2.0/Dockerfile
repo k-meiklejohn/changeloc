@@ -1,7 +1,5 @@
-#not tested
-
 # Use an official Perl runtime as a parent image
-FROM ubuntu
+FROM ubuntu:20.04
 
 # Install necessary system packages
 RUN apt-get update && \
