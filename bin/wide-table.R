@@ -2,32 +2,36 @@
 
 library(tidyverse)
 
-input_file <- commandArgs(trailingOnly = TRUE)
+# Get input file
+input_file <- commandArgs(trailingOnly = TRUE)[1]
 
-file_name <- str_extract(input_file, "^.*?(?=\\.)")
+# Extract base file name without extension
+file_name <- str_extract(input_file, "^.*(?=\\.)")
 
+# Read input file as a tibble
 long_table <- read_tsv(input_file)
 
+# Extract unique sets and column names
 sets <- unique(long_table$set)
 columns <- colnames(long_table)
-for_pivot <- columns[-c(1)]
+for_pivot <- columns[-1]  # Exclude first column from pivoting
 
-# pivots the table to compare Prediction between sets
+# Pivot the table to compare "Prediction" across sets
 wide_table <- long_table %>%
-  pivot_wider(names_from = set, values_from = all_of(for_pivot))
+  pivot_wider(names_from = set,
+              values_from = all_of(for_pivot),
+              values_fill = NA)
 
-first <- TRUE
-for (i in sets){
-  if (first == TRUE) {
-    wide_table <- wide_table %>%
-      mutate(change = get(paste0("Prediction_", i)))
-  }
-  if (first == FALSE) {
-    wide_table <- wide_table %>%
-      mutate(change = paste0(change, "-", get(paste0("Prediction_", i))), .after = seqID)
-  }
-  first <- FALSE
+# Initialize `change` column by comparing predictions across sets
+wide_table <- wide_table %>%
+  rowwise() %>%
+  mutate(
+    change = str_c(
+      sort(na.omit(c_across(starts_with("Prediction_")))), 
+      collapse = "-"
+    )
+  ) %>%
+  ungroup()
 
-}
-
-write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv"))
+# Write output to a new TSV file
+write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv")) 

@@ -25,7 +25,6 @@ merged_df <- merged_df %>%
   mutate(
     consensus_change = {
       mode_value <- names(which.max(table(c_across(starts_with("change")))))
-      mode_value
     },
     consensus_count = sum(c_across(starts_with("change")) == consensus_change, na.rm = TRUE)
   ) %>%

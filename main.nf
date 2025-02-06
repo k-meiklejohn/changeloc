@@ -1,8 +1,6 @@
 // main.nf
 include {WF_PREDICT} from './Workflows/predict_wf.nf'
-include {WF_CLEAN_RESULT as CLEAN_GEN} from './Workflows/clean-result_wf.nf'
-include {WF_CLEAN_RESULT as CLEAN_MITO} from './Workflows/clean-result_wf.nf'
-include {WF_CLEAN_RESULT as CLEAN_SGNL} from './Workflows/clean-result_wf.nf'
+include {WF_CLEAN_RESULT } from './Workflows/clean-result_wf.nf'
 include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
 include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
 include { WF_REPORT } from './Workflows/report_wf.nf'
@@ -35,7 +33,7 @@ workflow{
     prediction = WF_PREDICT(fasta, run_name)
 
     // long table creation
-    long_table = CLEAN_GEN(prediction, run_name, map)
+    long_table = WF_CLEAN_RESULT(prediction, run_name, map)
 
     // wide tables creation
     compare = WF_WIDE_TABLES(long_table, run_name)

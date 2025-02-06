@@ -30,19 +30,22 @@ workflow WF_WIDE_TABLES{
         "deeploc2",
         "tmhmm2"]
     
-
-
-    prediction_mito = prediction.filter { path -> 
-        keep_mito.any { prefix -> path.getName().startsWith(prefix) }}
-    prediction_sgnl = prediction.filter { path -> 
-        keep_sgnl.any { prefix -> path.getName().startsWith(prefix) }}
-
+    
 
     all = RUN_WIDE_TABLE(prediction, run_name)
-    mito =  RUN_MITO_WIDE_TABLE(prediction_mito, run_name)
-    sgnl = RUN_SGNL_WIDE_TABLE(prediction_sgnl, run_name)
 
-    full = all.collect().mix(mito.collect(), sgnl.collect())
+    mito = all.filter { path -> 
+        keep_mito.any { prefix -> path.getName().startsWith(prefix) }}
+        .collect()
+        .view()
+  
+    sgnl = all.filter { path -> 
+        keep_sgnl.any { prefix -> path.getName().startsWith(prefix) }}
+        .collect()
+        .view()
+
+    full = all.collect().mix(sgnl, mito)
+
 
     amalg = RUN_AMALGAMATE(full, run_name)
 

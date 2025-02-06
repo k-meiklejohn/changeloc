@@ -1,5 +1,4 @@
 process RUN_GIVE_ID  {
-    publishDir "test"
     input:
     path whole_fasta
 
