@@ -24,7 +24,7 @@ workflow WF_PREDICT {
     // run each software if specified
     if (params.run_mitofates) {
         def mitofates = RUN_MITOFATES(split_files, params.org_mitofates, run_name)
-            .collectFile(name: "mitofates.out")
+            .collectFile(name: "mitofates.out", skip: 1)
         mito_prediction = mito_prediction.mix(mitofates)
         general_prediction = general_prediction.mix(mitofates)
 

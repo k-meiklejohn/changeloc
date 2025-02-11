@@ -17,6 +17,8 @@ workflow WF_CLEAN_RESULT {
 
     mapped  = RUN_MAP_FASTA(cleaned, map, run_name)
 
+    // clean until here
+
     all     = RUN_SET(mapped, run_name).view()
 
     mito    = RUN_MITOFY(all, run_name)

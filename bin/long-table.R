@@ -33,14 +33,19 @@ if (file_name == "mitofates") {
   writeLines(cleaned_lines, temp_file)
 
   # Read the cleaned file with read_tsv
-  table <- read_tsv(temp_file)
+  table <- read_tsv(temp_file, col_names = FALSE)
 
   unlink(temp_file)
 
+  colnames(table)[3] <- "Prediction"
+
   # format Predictions
   table <- table[, c(1, 3, 2, 4:21)] %>%
-    mutate(table, Prediction = case_when(Prediction == "No mitochondrial presequence" ~ "othr",
-                                         Prediction == "Possessing mitochondrial presequence" ~ "mito"))
+    mutate(Prediction =
+             case_when(Prediction == "No mitochondrial presequence"
+                       ~ "othr",
+                       Prediction == "Possessing mitochondrial presequence"
+                       ~ "mito"))
 
 }
 

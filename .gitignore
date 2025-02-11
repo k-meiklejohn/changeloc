@@ -8,4 +8,5 @@ Results
 *.out
 *.tsv
 *.html
+.*
 Output
