@@ -42,4 +42,5 @@ echo "Building TMHMM2.0"
 docker build -t tmhmm2 . || echo "Building TMHMM2.0 failed"
 
 # cd ../
-# docker build .
+# echo ""
+# docker build -t  . || echo "Building  failed"

@@ -10,7 +10,7 @@ while read -r original_id unique_id; do
 done < <(tail -n +2 "$mapping_file")
 
 while read -r line; do
-    for id in $(printf "%s\n" "${!id_map[@]}" | sort -rV); do
+    for id in $(printf "%s\n" "${!id_map[@]}"); do
         if [[ "$line" =~ ^$id ]]; then
             echo "${id_map[$id]}${line#$id}"
             unset id_map["$id"]

@@ -1,7 +1,7 @@
 // main.nf
-include {WF_PREDICT} from './Workflows/predict_wf.nf'
-include {WF_CLEAN_RESULT } from './Workflows/clean-result_wf.nf'
-include {WF_WIDE_TABLES} from './Workflows/wide-tables_wf.nf'
+include { WF_PREDICT } from './Workflows/predict_wf.nf'
+include { WF_CLEAN_RESULT } from './Workflows/clean-result_wf.nf'
+include { WF_WIDE_TABLES } from './Workflows/wide-tables_wf.nf'
 include { WF_PROCESS_FASTA } from './Workflows/process-fasta_wf.nf'
 include { WF_REPORT } from './Workflows/report_wf.nf'
 include { WF_GO_ANALYSIS } from './Workflows/go-analysis_wf.nf'

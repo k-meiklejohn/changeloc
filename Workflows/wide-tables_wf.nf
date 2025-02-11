@@ -37,14 +37,14 @@ workflow WF_WIDE_TABLES{
     mito = all.filter { path -> 
         keep_mito.any { prefix -> path.getName().startsWith(prefix) }}
         .collect()
-        .view()
+
   
     sgnl = all.filter { path -> 
         keep_sgnl.any { prefix -> path.getName().startsWith(prefix) }}
         .collect()
-        .view()
 
-    full = all.collect().mix(sgnl, mito)
+
+    full = mito.mix(sgnl, mito, all.collect())
 
 
     amalg = RUN_AMALGAMATE(full, run_name)

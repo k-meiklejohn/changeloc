@@ -1,6 +1,7 @@
 process RUN_GO_ANALYSIS {
     container "changeloc/r"
     publishDir "Output/${dir}/GO_analysis", mode: "copy"
+    errorStrategy "ignore"
 
     input:
     path input_file
@@ -8,7 +9,6 @@ process RUN_GO_ANALYSIS {
 
     output:
     path "*.csv"
-
     
     script:
     """

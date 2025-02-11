@@ -7,20 +7,16 @@ library(tidyverse)
 # Load gene list (TSV file)
 input_file <- commandArgs(trailingOnly = TRUE)
 
-print(paste("input file is", input_file))
-
 gene_data <- read.table(input_file, header = TRUE, sep = "\t")
 
 filename <- str_extract(input_file, "^.*?(?=\\.)")
 
 changes <- unique(gene_data$consensus_change)
 
-print(paste("unique changes are", changes))
 
 # Separate genes by group
 gene_sets <- c()
 for (x in changes){
-  print(paste("unique change in use", x))
   change_name <- paste0(x, "_genes")
   assign(change_name, gene_data[gene_data$consensus_change == x, "seqID"])
   gene_sets <- append(change_name, gene_sets)

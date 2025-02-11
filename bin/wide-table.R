@@ -27,11 +27,11 @@ wide_table <- wide_table %>%
   rowwise() %>%
   mutate(
     change = str_c(
-      sort(na.omit(c_across(starts_with("Prediction_")))), 
+      sort(na.omit(c_across(starts_with("Prediction_")))),
       collapse = "-"
     )
   ) %>%
   ungroup()
 
 # Write output to a new TSV file
-write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv")) 
+write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv"))

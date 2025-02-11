@@ -19,4 +19,4 @@ while read line; do
     fi
 done < "$input_fasta"
 
-cat $mapping_file
+# sort "$mapping_file" -r

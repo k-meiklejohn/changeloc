@@ -4,6 +4,10 @@ library(tidyverse)
 # Capture the file paths from command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
 
+if (length(args) <= 1) {
+  quit()
+}
+
 file_paths <- as.character(args)
 
 file_name <- str_extract(file_paths[1], "(?<=\\.)[^.]+(?=\\.)")
@@ -26,7 +30,8 @@ merged_df <- merged_df %>%
     consensus_change = {
       mode_value <- names(which.max(table(c_across(starts_with("change")))))
     },
-    consensus_count = sum(c_across(starts_with("change")) == consensus_change, na.rm = TRUE)
+    consensus_count =
+      sum(c_across(starts_with("change")) == consensus_change, na.rm = TRUE)
   ) %>%
   ungroup()
 
