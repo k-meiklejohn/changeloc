@@ -6,7 +6,7 @@ library(tidyverse)
 input_file <- commandArgs(trailingOnly = TRUE)[1]
 
 # Extract base file name without extension
-file_name <- str_extract(input_file, "^.*(?=\\.)")
+file_name <- str_extract(input_file, "^\\w*\\.\\w*")
 
 # Read input file as a tibble
 long_table <- read_tsv(input_file)
@@ -34,4 +34,4 @@ wide_table <- wide_table %>%
   ungroup()
 
 # Write output to a new TSV file
-write_tsv(wide_table, file = paste0(file_name, ".all.wide.tsv"))
+write_tsv(wide_table, file = paste0(file_name, ".wide"))

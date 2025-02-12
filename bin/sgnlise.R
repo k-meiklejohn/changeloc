@@ -27,4 +27,4 @@ sgnl_table <- long_table %>%
       )
   )
 
-write_tsv(sgnl_table, file = paste0(file_name, ".sgnl.long.tsv"))
+write_tsv(sgnl_table, file = paste0(file_name, ".sgnl.long"))

@@ -1,13 +1,13 @@
 process RUN_WIDE_TABLE {
     container "changeloc/r"
-    publishDir "Output/${dir}/TSVs/all", mode: "copy"
+    publishDir "Output/${dir}/Wide", mode: "copy"
 
     input:
     path all_longtable
     val dir
 
     output:
-    path "*.tsv"
+    path "*.wide"
 
     script:
     """

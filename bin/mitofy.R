@@ -3,7 +3,7 @@ library(tidyverse)
 
 input_file <- commandArgs(trailingOnly = TRUE)
 
-file_name <- str_extract(input_file, "^.*?(?=\\.)" )
+file_name <- str_extract(input_file, "^.*?(?=\\.)")
 
 long_table <- read_tsv(input_file)
 
@@ -15,4 +15,4 @@ mito_table <- long_table %>%
       )
   )
 
-write_tsv(mito_table, file = paste0(file_name, ".mito.long.tsv"))
+write_tsv(mito_table, file = paste0(file_name, ".mito.long"))

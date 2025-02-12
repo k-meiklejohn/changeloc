@@ -13,4 +13,4 @@ table <- table %>%
   mutate(seqID = str_extract(seqID, ".*(?=-changelocset)"))
 
 #this gives general non comparative tsv to work with in other reports
-write_tsv(table, file = paste0(file_name, ".long.tsv"))
+write_tsv(table, file = paste0(file_name, ".all.long"))

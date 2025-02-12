@@ -104,7 +104,8 @@ if (file_name == "targetp2") {
   colnames(table)[2] <- "Prediction"
   table <- table %>%
     mutate(Prediction = case_when(Prediction == "noTP" ~ "othr",
-                                  Prediction == "mTP" ~ "mitp"))
+                                  Prediction == "mTP" ~ "mito",
+                                  Prediction == "SP" ~ "sgnl"))
 }
 
 if (file_name == "signalp6") {
@@ -122,17 +123,17 @@ if (file_name == "deeploc2") {
   colnames(table)[2] <- "Prediction"
 
 
-abbreviations <- c(
-  "Nucleus" = "nucl",
-  "Cytoplasm" = "cyto",
-  "Extracellular" = "extr",
-  "Mitochondrion" = "mito",
-  "Cell membrane" = "plas",
-  "Endoplasmic reticulum" = "E.R.",
-  "Chloroplast" = "chlr",
-  "Golgi apparatus" = "golg",
-  "Lysosome/Vacuole" = "lyso",
-  "Peroxisome" = "pero"
+  abbreviations <- c(
+    "Nucleus" = "nucl",
+    "Cytoplasm" = "cyto",
+    "Extracellular" = "extr",
+    "Mitochondrion" = "mito",
+    "Cell membrane" = "plas",
+    "Endoplasmic reticulum" = "E.R.",
+    "Chloroplast" = "chlr",
+    "Golgi apparatus" = "golg",
+    "Lysosome/Vacuole" = "lyso",
+    "Peroxisome" = "pero"
 )
 
 #function to map Predictions to abbreviations

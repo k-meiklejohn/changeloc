@@ -1,5 +1,5 @@
 process RUN_SET {
-    publishDir "Output/${dir}/TSVs/all", mode: "copy"
+    publishDir "Output/${dir}/Results", mode: "copy"
     container "changeloc/r"
 
     input:
@@ -7,7 +7,7 @@ process RUN_SET {
     val dir
 
     output:
-    path "*.tsv"
+    path "*.long"
 
     script:
     """

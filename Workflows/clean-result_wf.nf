@@ -5,7 +5,6 @@ include { RUN_MITOFY } from '../Modules/Data_handling/mitofy.nf'
 include { RUN_SGNLISE } from '../Modules/Data_handling/sgnlise.nf'
 
 
-
 workflow WF_CLEAN_RESULT {
     take:
     prediction

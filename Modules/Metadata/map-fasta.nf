@@ -1,5 +1,4 @@
 process RUN_MAP_FASTA {
-    publishDir "Output/${dir}/Results", mode: "copy"
 
     input:
     path table

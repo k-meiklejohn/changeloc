@@ -10,10 +10,10 @@ workflow WF_REPORT {
     main:
     
   
-    full = RUN_AGGREGATE(amalg.collect(), run_name)
+    // full = RUN_AGGREGATE(amalg.collect(), run_name)
     
-    report_in = amalg.mix(full)
+    // report_in = amalg.mix(full)
 
-    RUN_AUTO_REPORT(report_in, run_name)
+    RUN_AUTO_REPORT(amalg, run_name)
 
 }

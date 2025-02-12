@@ -2,7 +2,7 @@
 
 input_txt="$1"
 mapping_file="$2"
-output_txt="${input_txt/unmapped/"mapped"}"
+output_txt="${input_txt/unmapped/"all"}"
 
 declare -A id_map
 while read -r original_id unique_id; do
