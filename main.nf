@@ -32,6 +32,7 @@ workflow{
     // send to prediction software
     prediction = WF_PREDICT(fasta, run_name)
 
+
     // long table creation
     long_table = WF_CLEAN_RESULT(prediction, run_name, map)
 
