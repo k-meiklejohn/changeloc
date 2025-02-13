@@ -6,7 +6,11 @@ num_chunks="$2"
 total_sequences=$(grep -c '^>' "$input_file")
 
 # Calculate the number of sequences per chunk
-seqs_per_chunk=$(( (total_sequences + num_chunks - 1) / num_chunks ))
+if [ "$3" == "default" ]; then
+  seqs_per_chunk=$(( (total_sequences + num_chunks - 1) / num_chunks ))
+else
+    seqs_per_chunk="$3"
+fi
 
 # Split the file
 awk -v n="$seqs_per_chunk"  '

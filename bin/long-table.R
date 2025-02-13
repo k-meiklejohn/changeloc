@@ -8,7 +8,7 @@ file_name <- str_extract(input_file, "^.*?(?=\\.)")
 if (file_name == "tmhmm2") {
   table <- read_tsv(input_file, col_names = FALSE)
   colnames(table)[5] <- "Prediction"
-  
+
   table <- table[, c(1, 5)] %>%
     mutate(Prediction = (sub("\\D", "", Prediction)))
   table$Prediction <- as.numeric(as.character(table$Prediction))
@@ -124,36 +124,33 @@ if (file_name == "deeploc2") {
 
 
   abbreviations <- c(
-    "Nucleus" = "nucl",
-    "Cytoplasm" = "cyto",
-    "Extracellular" = "extr",
-    "Mitochondrion" = "mito",
-    "Cell membrane" = "plas",
-    "Endoplasmic reticulum" = "E.R.",
-    "Chloroplast" = "chlr",
-    "Golgi apparatus" = "golg",
-    "Lysosome/Vacuole" = "lyso",
-    "Peroxisome" = "pero"
-)
+                     "Nucleus" = "nucl",
+                     "Cytoplasm" = "cyto",
+                     "Extracellular" = "extr",
+                     "Mitochondrion" = "mito",
+                     "Cell membrane" = "plas",
+                     "Endoplasmic reticulum" = "E.R.",
+                     "Chloroplast" = "chlr",
+                     "Golgi apparatus" = "golg",
+                     "Lysosome/Vacuole" = "lyso",
+                     "Peroxisome" = "pero")
 
-#function to map Predictions to abbreviations
-map_abbrev <- function(pred, abbreviations) {
-  sapply(pred, function(prediction) {
-    if (grepl("\\|", prediction)) {
-      components <- strsplit(pred, "\\|")[[1]]
-      abbrev_components <- abbreviations[components]
-      paste(sort(abbrev_components), collapse = "_")
-    } else {
-      abbreviations[prediction]
-    }
-  })
-}
+  #function to map Predictions to abbreviations
+  map_abbrev <- function(pred, abbreviations) {
+    sapply(pred, function(prediction) {
+      if (grepl("\\|", prediction)) {
+        components <- strsplit(pred, "\\|")[[1]]
+        abbrev_components <- abbreviations[components]
+        paste(sort(abbrev_components), collapse = "_")
+      } else {
+        abbreviations[prediction]
+      }
+    })
+  }
 
   #use above function to change abbreviations to correct format
   table <- table %>%
     mutate(Prediction = map_abbrev(Prediction, abbreviations))
-
-
 }
 
 

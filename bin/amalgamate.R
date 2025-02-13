@@ -39,4 +39,17 @@ merged_df <- merged_df %>%
   select(seqID, consensus_change, consensus_count) %>%
   arrange(desc(consensus_count))
 
+df_list <- c()
+n <- 1
+for (i in unique(merged_df$consensus_change)) {
+  df_list[[n]] <- subset(merged_df, consensus_change == i)
+  n <- n + 1
+}
+
 write_tsv(merged_df, file = paste0(file_name, ".amalg.tsv"))
+
+for (i in df_list){
+  write_tsv(i[c(1, 3)],
+            file = paste0(file_name, "_", i$consensus_change[1], ".amalg.tsv"))
+
+}

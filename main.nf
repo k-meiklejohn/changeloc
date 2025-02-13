@@ -8,9 +8,6 @@ include { WF_GO_ANALYSIS } from './Workflows/go-analysis_wf.nf'
 
 // Main workflow
 workflow{
-
-    // Create a channel from the input FASTA files
-    input_sets = Channel.fromPath(params.fasta)
     
     currentDate = new Date().format("yyyy-MM-dd_HH-mm-ss")
     if (params.name == null){
@@ -25,22 +22,22 @@ workflow{
 
     println("Files will be saved to 'Output/${run_name}'")
     
-    process_fasta = WF_PROCESS_FASTA(input_sets, run_name, params.chunks)
-    map = process_fasta.map
-    fasta = process_fasta.fasta
+    process_fasta = WF_PROCESS_FASTA(run_name)
 
     // send to prediction software
-    prediction = WF_PREDICT(fasta, run_name)
+    prediction = WF_PREDICT(process_fasta.fasta, run_name)
 
 
     // long table creation
-    long_table = WF_CLEAN_RESULT(prediction, run_name, map)
+    long_table = WF_CLEAN_RESULT(prediction, run_name, process_fasta.map)
 
     // wide tables creation
     compare = WF_WIDE_TABLES(long_table, run_name)
 
+    // gene onotolgy enrichemnt analysis
     WF_GO_ANALYSIS(compare.amalg, run_name)
 
+    // generate a basic auto report
     WF_REPORT(compare.amalg, run_name)
 
 }

@@ -8,11 +8,6 @@ workflow WF_REPORT {
     run_name
 
     main:
-    
-  
-    // full = RUN_AGGREGATE(amalg.collect(), run_name)
-    
-    // report_in = amalg.mix(full)
 
     RUN_AUTO_REPORT(amalg, run_name)
 
