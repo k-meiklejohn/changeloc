@@ -58,7 +58,7 @@ workflow WF_WIDE_TABLES{
     full = mito.mix(sgnl, mito, all.collect())
 
 
-    amalg = RUN_AMALGAMATE(full, run_name)
+    amalg = RUN_AMALGAMATE(full, run_name, params.threshold)
 
  
     emit:

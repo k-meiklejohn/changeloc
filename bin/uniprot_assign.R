@@ -14,7 +14,8 @@ proteome <- tibble(Name = names(proteome),
 
 proteome <- proteome %>%
   subset(grepl("GN=", Name) == TRUE) %>%
-  mutate(Gene = str_extract(Name, "(?<=GN=)\\S*"))
+  mutate(Gene = str_extract(Name, "(?<=GN=)\\S*")) %>%
+  mutate(seqID = paste(Gene, str_extract(Name, "^\\S*")))
 
 # Find highest number of repeated genes
 max_count <- max(table(proteome$Gene))
@@ -34,7 +35,7 @@ for (i in 1:max_count) {
 n <- 1
 for (i in df_list) {
   write.fasta(sequences = i$Sequence,
-              names = i$Gene,
+              names = i$Name,
               file.out = paste0(n, ".fasta"))
   n <- n + 1
 }

@@ -1,9 +1,9 @@
 process RUN_MAP_FASTA {
+    publishDir "test"
 
     input:
     path table
     each map
-    val dir
 
     output:
     path "*.tsv"

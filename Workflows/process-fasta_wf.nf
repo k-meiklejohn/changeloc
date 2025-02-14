@@ -15,14 +15,16 @@ main:
 
 
 
-if (params.uniprot_fasta != null){
+if (params.uniprot_fasta == null){
+    // Create a channel from the input FASTA files
+    fasta = Channel.fromPath(params.fasta)
+
+}
+else {
     // if a uniprot proteome fasta is provided, split it into files containing unique genes
     input = Channel.fromPath(params.uniprot_fasta)
     fasta = RUN_UNIPROT_CONVERT(input)
-}
-else {
-    // Create a channel from the input FASTA files
-    fasta = Channel.fromPath(params.fasta)
+
 }
 
 // gives each entry in file a name based on filename
